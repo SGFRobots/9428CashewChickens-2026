@@ -19,7 +19,6 @@ import edu.wpi.first.wpilibj.motorcontrol.Spark;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
-  private Command m_elevatorCommand;
   private Command m_speedControl;
   private Spark mLED;
 
@@ -75,7 +74,6 @@ public class Robot extends TimedRobot {
     stage = "auto";
 
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-    m_robotContainer.autoReset();
 
     m_speedControl = m_robotContainer.getSpeedControlCommand();
     m_speedControl.schedule();
@@ -86,7 +84,6 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.schedule();
     }
 
-    m_robotContainer.resetElevator();
 
 
   }
@@ -115,7 +112,6 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
 
-    m_robotContainer.resetElevator();
 
 
     // m_robotContainer.resetRotations();

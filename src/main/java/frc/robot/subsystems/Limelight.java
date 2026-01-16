@@ -7,9 +7,6 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
-// import com.revrobotics.Rev2mDistanceSensor;
-// import com.revrobotics.Rev2mDistanceSensor.Port;
-
 public class Limelight extends SubsystemBase{
     // Data values
     private int id;
@@ -20,7 +17,6 @@ public class Limelight extends SubsystemBase{
 
     // Input
     private NetworkTable table;
-    // private static Rev2mDistanceSensor sensor = new Rev2mDistanceSensor(Port.kOnboard);
 
     // Limelight name
     private String name;

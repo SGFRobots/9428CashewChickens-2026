@@ -22,9 +22,9 @@ public final class Constants {
     // public static final String ModuleNameSim = "Swerve Modules"; // DELETED IN THE GREAT RONIN CLEAN UP OF 2026
     public static final boolean fieldOriented = false;
     
-    public static final class MotorPorts {
+    public static final class MotorPorts { // MOTOR PORTS ALL CHANGE EXCPET GYRO + LIMELIHGT 
         // CAN IDs of driving motors
-        public static final int kFLDriveMotorID = 4;
+        public static final int kFLDriveMotorID = 4; 
         public static final int kBLDriveMotorID = 1;
         public static final int kFRDriveMotorID = 3;
         public static final int kBRDriveMotorID = 2;
@@ -35,22 +35,6 @@ public final class Constants {
         public static final int kFRTurningMotorID = 12;
         public static final int kBRTurningMotorID = 9;
 
-        // CAN IDs of Elevator
-        public static final int kLElevator = 2;
-        public static final int kRElevator = 7;
-
-        // CAN IDs of Coral scorer
-        public static final int kLCoral = 5;
-        public static final int kRCoral = 6;
-
-        // CAN IDs of Algae scorer
-        public static final int kAlgaePosMotorID = 13;
-        public static final int kAlgaeWheelMotor = 10;
-
-        // CAN IDs of Cage hanging
-        public static final int kCagePullieID = 15;
-        public static final int kCageLiftyID = 16;
-        
         // CAN IDs of CANCoders
         public static final int kFLDriveAbsoluteEncoderID = 8;
         public static final int kBLDriveAbsoluteEncoderID = 5;
@@ -63,12 +47,13 @@ public final class Constants {
         // LEDs
         public static final int LEDChannel = 8;
 
+        // Limelight
         public static final String kLeftLimelightKey = "limelight-left";
         public static final String kRightLimelightKey = "limelight-right";
     }
 
     // Reversed motors
-    public static final class Reversed {
+    public static final class Reversed { // These might change! 
         // Turning motors
         public static final boolean kFLTurningReversed = true;
         public static final boolean kBLTurningReversed = true;
@@ -101,7 +86,7 @@ public final class Constants {
     }
 
     // Physical and mechanical variables
-    public static final class Mechanical {
+    public static final class Mechanical { // DOUBLE CHECK LATER
 
         // Robot's physical measurements
         public static final double kWheelRadiusMeters = 0.0508;
@@ -126,22 +111,22 @@ public final class Constants {
 
         
         // Distance between right and left wheels (in meters)
-        public static final double kRobotWidthMeters = 0.6731;
+        public static final double kRobotWidthMeters = 0.6731; //change
         // Distance between front and back wheels (in meters)
-        public static final double kRobotLengthMeters = 0.6731;
+        public static final double kRobotLengthMeters = 0.6731; //change
 
         // CANCoders' offsets
         public static final double kFLDriveAbsoluteEncoderOffset = 0.7974; 
         public static final double kBLDriveAbsoluteEncoderOffset = 0.5253;
         public static final double kFRDriveAbsoluteEncoderOffset = 0.8394; 
-        public static final double kBRDriveAbsoluteEncoderOffset = 0.7114; 
+        public static final double kBRDriveAbsoluteEncoderOffset = 0.7114; //change change change and change 
 
         // Module Positions on Robot
         public static final Translation2d[] kModulePositions = {
             new Translation2d(kRobotLengthMeters / 2, kRobotWidthMeters / 2),
             new Translation2d(kRobotLengthMeters / 2, -kRobotWidthMeters / 2),
             new Translation2d(-kRobotLengthMeters / 2, kRobotWidthMeters / 2),
-            new Translation2d(-kRobotLengthMeters / 2, -kRobotWidthMeters / 2)
+            new Translation2d(-kRobotLengthMeters / 2, -kRobotWidthMeters / 2) // should stay same 
         };
         // Kinematics map of robot
         // FL, FR, BL, BR
@@ -149,13 +134,13 @@ public final class Constants {
             kModulePositions[0],
             kModulePositions[1],
             kModulePositions[2],
-            kModulePositions[3]);
+            kModulePositions[3]); // good - tiny t
         
-        // Deadzone
+        // Deadzone // maybe change ? 
         public static final double kDeadzone = 0.1;
         public static final double AprilTagDeadzone = 3;
     
-        // Speeds and Accelerations
+        // Speeds and Accelerations // check 
         public static final double kPhysicalMaxSpeedMetersPerSecond = 5.0292;
         public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 12.119;
         public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond / 4;
@@ -163,29 +148,6 @@ public final class Constants {
         public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 10;
         public static final double kTeleDriveMaxAngularAccelerationUnitsPerSecond = 10;
 
-        // Elevator
-        // Coral Heights
-        // public static final double ElevatorLowestHeight = 0; // DELETED IN THE GREAT RONIN CLEAN UP OF 2026
-        public static final double ElevatorLevelZeroHeight = -50;
-        public static final double ElevatorLevelOneHeight = -175;
-        public static final double ElevatorLevelTwoHeight = -345;
-        public static final double ElevatorMaxHeight = -610;
-        // Algae heights
-        public static final double ElevatorAlgaeOneHeight = -278;
-        public static final double ElevatorAlgaeTwoHeight = -475;
-
-        // Algae Arm positions
-        public static final double AlgaeInPos = 4;
-        public static final double AlgaeOutPos = 4.5;
-
-        // Cage positions
-        public static final double CagePullieDownPos = 0;
-        public static final double CagePullieUpPos = 45.69;
-        public static final double CageLiftyUpPos = 0.2857;
-
-        // LED
-
-        // ronin was here B) 
     }
 
     public static final class AprilTags {
@@ -218,12 +180,12 @@ public final class Constants {
         public static final int BackupDriveControllerPort = 2;
 
         // New Controllers
-        public static final class newControllers {
+        public static final class DrivingController {
             // Joystick
             public static final int RightXPort = 0;
             public static final int RightYPort = 1;
-            public static final int LeftYPort = 2;
             public static final int LeftXPort = 3;
+            public static final int LeftYPort = 2;
 
             // Bumpers? 1 -> down; -1 -> up
             public static final int LeftHoldBtn = 4;
@@ -239,7 +201,7 @@ public final class Constants {
         }
 
         // Black drone controller
-        public static final class selected {
+        public static final class OldController {
             // Joysticks and triggers
             public static final int LeftXPort = 0;
             public static final int LeftYPort = 1;
@@ -263,59 +225,6 @@ public final class Constants {
             // Buttons
             public static final int ButtonAPort = 7;
             public static final int ButtonDPort = 8;
-        }
-        
-        // White drone controller
-        public static final class backup {
-            // Joysticks and triggers
-            public static final int LeftXPort = 3;
-            public static final int LeftYPort = 2;
-            public static final int RightXPort = 0;
-            public static final int RightYPort = 1;
-
-            // Switches
-            public static final int SwitchA = 4;
-            public static final int SwitchB = 5;
-            public static final int SwitchC = 7;
-            public static final int SwitchD = 6;
-
-            // Buttons
-            public static final int ButtonEPort = 1;
-            public static final int ButtonFPort = 2;
-            public static final int buttonB = 1;
-            public static final int buttonA = 2;
-        }
-
-        public static final class XBox {
-            // Joysticks
-            public static final int LeftXPort = 0;
-            public static final int LeftYPort = 1;
-            public static final int RightXPort = 4;
-            public static final int RightYPort = 5;
-            public static final int LeftJoystickButton = 9;
-            public static final int RightJoystickButton = 10;
-
-            // Triggers
-            public static final int LeftTriggerPort = 2;
-            public static final int RightTriggerPort = 3;
-
-            // Bumpers
-            public static final int LeftBumper = 5;
-            public static final int RightBumper = 6;
-
-            // Buttons
-            public static final int buttonB = 1;
-            public static final int buttonA = 2;
-            public static final int buttonY = 3;
-            public static final int buttonX = 4;
-            public static final int buttonPlus = 8;
-            public static final int buttonMinus = 7;
-
-            // D-Pad
-            public static final int DPadUp = 0;
-            public static final int DPadRight = 90;
-            public static final int DPadDown = 180;
-            public static final int DPadLeft = 270;
         }
 
         public static final class XBoxBackup {
