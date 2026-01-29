@@ -24,23 +24,23 @@ public final class Constants {
     
     public static final class MotorPorts { // MOTOR PORTS ALL CHANGE EXCPET GYRO + LIMELIHGT 
         // CAN IDs of driving motors
-        public static final int kFLDriveMotorID = 4; 
-        public static final int kBLDriveMotorID = 1;
-        public static final int kFRDriveMotorID = 3;
-        public static final int kBRDriveMotorID = 2;
+        public static final int kFLDriveMotorID = 1; 
+        public static final int kBLDriveMotorID = 4;
+        public static final int kFRDriveMotorID = 2;
+        public static final int kBRDriveMotorID = 3;
 
         // CAN IDs of turning motors
-        public static final int kFLTurningMotorID = 3;
-        public static final int kBLTurningMotorID = 11;
-        public static final int kFRTurningMotorID = 12;
-        public static final int kBRTurningMotorID = 9;
+        public static final int kFLTurningMotorID = 1;
+        public static final int kBLTurningMotorID = 4;
+        public static final int kFRTurningMotorID = 2;
+        public static final int kBRTurningMotorID = 3;
 
         // CAN IDs of CANCoders
-        public static final int kFLDriveAbsoluteEncoderID = 8;
-        public static final int kBLDriveAbsoluteEncoderID = 5;
-        public static final int kFRDriveAbsoluteEncoderID = 7;
-        public static final int kBRDriveAbsoluteEncoderID = 6;
-        
+        public static final int kFLDriveAbsoluteEncoderID = 5;
+        public static final int kBLDriveAbsoluteEncoderID = 8;
+        public static final int kFRDriveAbsoluteEncoderID = 6;
+        public static final int kBRDriveAbsoluteEncoderID = 7;
+        // 1 4 2 3 5 8 6 7 
         // Gyro
         public static final int kGyroPort = 2;
 
@@ -111,9 +111,9 @@ public final class Constants {
 
         
         // Distance between right and left wheels (in meters)
-        public static final double kRobotWidthMeters = 0.6731; //change
+        public static final double kRobotWidthMeters = 0.6477; //change
         // Distance between front and back wheels (in meters)
-        public static final double kRobotLengthMeters = 0.6731; //change
+        public static final double kRobotLengthMeters = 0.6477; //changed to 25.5 inches. was at 26.5 inches.
 
         // CANCoders' offsets
         public static final double kFLDriveAbsoluteEncoderOffset = 0.7974; 
