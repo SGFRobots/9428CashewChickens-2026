@@ -82,7 +82,7 @@ public class RobotContainer {
 
   // Assign buttons to commands
   private void configureButtonBindings() {
-    // new JoystickButton(mDroneComtroller, Constants.Controllers.selected.ButtonAPort).onTrue(mResetRotations);
+    new JoystickButton(mDroneComtroller, Constants.Controllers.DrivingController.LeftButton).onTrue(new InstantCommand(() -> mSwerveSubsystem.resetYaw(), mSwerveSubsystem));
   }
 
   // Set up auto commands

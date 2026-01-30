@@ -20,7 +20,7 @@ import edu.wpi.first.math.geometry.Translation2d;
  */
 public final class Constants {        
     // public static final String ModuleNameSim = "Swerve Modules"; // DELETED IN THE GREAT RONIN CLEAN UP OF 2026
-    public static final boolean fieldOriented = false;
+    public static final boolean fieldOriented = true;
     
     public static final class MotorPorts { // MOTOR PORTS ALL CHANGE EXCPET GYRO + LIMELIHGT 
         // CAN IDs of driving motors
@@ -67,15 +67,15 @@ public final class Constants {
         public static final boolean kBRDriveReversed = false;
 
         // Turning encoders
-        public static final boolean kFLTurningEncoderReversed = false;
+        public static final boolean kFLTurningEncoderReversed = true;
         public static final boolean kBLTurningEncoderReversed = true;
         public static final boolean kFRTurningEncoderReversed = true;
         public static final boolean kBRTurningEncoderReversed = true;
     
         // Driving encoders
         public static final boolean kFLDriveEncoderReversed = false;
-        public static final boolean kBLDriveEncoderReversed = true;
-        public static final boolean kFRDriveEncoderReversed = true;
+        public static final boolean kBLDriveEncoderReversed = false;
+        public static final boolean kFRDriveEncoderReversed = false;
         public static final boolean kBRDriveEncoderReversed = false;
         
         // CANCoders
@@ -116,10 +116,10 @@ public final class Constants {
         public static final double kRobotLengthMeters = 0.6477; //changed to 25.5 inches. was at 26.5 inches.
 
         // CANCoders' offsets
-        public static final double kFLDriveAbsoluteEncoderOffset = 0.7974; 
-        public static final double kBLDriveAbsoluteEncoderOffset = 0.5253;
-        public static final double kFRDriveAbsoluteEncoderOffset = 0.8394; 
-        public static final double kBRDriveAbsoluteEncoderOffset = 0.7114; //change change change and change 
+        public static final double kFLDriveAbsoluteEncoderOffset = -0.0483; 
+        public static final double kBLDriveAbsoluteEncoderOffset = 0.2954;
+        public static final double kFRDriveAbsoluteEncoderOffset = 0.0139; 
+        public static final double kBRDriveAbsoluteEncoderOffset = 0.4727; //change change change and change 
 
         // Module Positions on Robot
         public static final Translation2d[] kModulePositions = {

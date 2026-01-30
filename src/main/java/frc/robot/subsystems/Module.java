@@ -126,11 +126,11 @@ public class Module {
             }
 
             mDriveMotor.set(driveOutput);
-            mTurnMotor.set(turnOutput); 
+            mTurnMotor.set(turnOutput/2); 
             
             // Telemetry
-            // SmartDashboard.putNumber("before" + mDriveMotor.getDeviceID(), pNewState.angle.getDegrees());
-            // SmartDashboard.putNumber("turn " + mDriveMotor.getDeviceID() + " output", turnOutput);
+            SmartDashboard.putNumber("before" + mDriveMotor.getDeviceID(), pNewState.angle.getDegrees());
+            SmartDashboard.putNumber("turn " + mDriveMotor.getDeviceID() + " output", turnOutput);
             // SmartDashboard.putNumber("drive " + mDriveMotor.getDeviceID() + " output", driveOutput);
             // SmartDashboard.putString("Swerve[" + absoluteEncoder.getDeviceID() + "] state", currentSpeeds.toString());
             

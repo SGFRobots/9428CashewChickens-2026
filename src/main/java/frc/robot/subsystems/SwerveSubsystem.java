@@ -103,9 +103,10 @@ public class SwerveSubsystem extends SubsystemBase {
     public SwerveSubsystem() {
         
         mGyro = new AHRS(AHRS.NavXComType.kUSB1);
-        zeroHeading();
+        // zeroHeading();
+        resetYaw();
 
-        mOdometer = new SwerveDriveOdometry(Constants.Mechanical.kDriveKinematics, getRotation2d(), getModulePositions(), new Pose2d(7.598, 4.070, getRotation2d()));
+        mOdometer = new SwerveDriveOdometry(Constants.Mechanical.kDriveKinematics, getRotation2d(), getModulePositions(), new Pose2d(0,0, getRotation2d()));
 
         LimelightHelpers.setPipelineIndex("limelight-left", 0);
         LimelightHelpers.setPipelineIndex("limelight-right", 0);
@@ -152,6 +153,16 @@ public class SwerveSubsystem extends SubsystemBase {
     
     public void zeroHeading() {
         mGyro.zeroYaw();
+        var alliance = DriverStation.getAlliance();
+        if (alliance.get() == DriverStation.Alliance.Blue) {
+            mGyro.setAngleAdjustment(180);
+        } else {
+            mGyro.setAngleAdjustment(0);
+        }
+    }
+
+    public void resetYaw() {
+        mGyro.reset();
         var alliance = DriverStation.getAlliance();
         if (alliance.get() == DriverStation.Alliance.Blue) {
             mGyro.setAngleAdjustment(180);
