@@ -40,9 +40,9 @@ public class SwerveSubsystem extends SubsystemBase {
                     Constants.Reversed.kFLDriveReversed,
                     Constants.Reversed.kFLTurningReversed,
                     Constants.MotorPorts.kFLDriveAbsoluteEncoderID,
-                    Constants.Mechanical.kFLDriveAbsoluteEncoderOffset,
+                    Constants.Mechanical.kFLDriveAbsoluteEncoderOffset2,
+                    // Constants.Mechanical.kFLDriveAbsoluteEncoderOffset1,
                     Constants.Reversed.kFLDriveAbsoluteEncoderReversed),
-
             // Front Right
             new Module(
                     Constants.MotorPorts.kFRDriveMotorID,
@@ -50,7 +50,8 @@ public class SwerveSubsystem extends SubsystemBase {
                     Constants.Reversed.kFRDriveReversed,
                     Constants.Reversed.kFRTurningReversed,
                     Constants.MotorPorts.kFRDriveAbsoluteEncoderID,
-                    Constants.Mechanical.kFRDriveAbsoluteEncoderOffset,
+                    Constants.Mechanical.kFRDriveAbsoluteEncoderOffset2,
+                    // Constants.Mechanical.kFRDriveAbsoluteEncoderOffset1,
                     Constants.Reversed.kFRDriveAbsoluteEncoderReversed),
 
             // Back Left
@@ -60,9 +61,10 @@ public class SwerveSubsystem extends SubsystemBase {
                     Constants.Reversed.kBLDriveReversed,
                     Constants.Reversed.kBLTurningReversed,
                     Constants.MotorPorts.kBLDriveAbsoluteEncoderID,
-                    Constants.Mechanical.kBLDriveAbsoluteEncoderOffset,
+                    Constants.Mechanical.kBLDriveAbsoluteEncoderOffset2,
+                    // Constants.Mechanical.kBLDriveAbsoluteEncoderOffset1,
                     Constants.Reversed.kBLDriveAbsoluteEncoderReversed),
-            
+
             // Back Right
             new Module(
                     Constants.MotorPorts.kBRDriveMotorID,
@@ -70,9 +72,10 @@ public class SwerveSubsystem extends SubsystemBase {
                     Constants.Reversed.kBRDriveReversed,
                     Constants.Reversed.kBRTurningReversed,
                     Constants.MotorPorts.kBRDriveAbsoluteEncoderID,
-                    Constants.Mechanical.kBRDriveAbsoluteEncoderOffset,
+                    Constants.Mechanical.kBRDriveAbsoluteEncoderOffset2,
+                    // Constants.Mechanical.kBRDriveAbsoluteEncoderOffset1,
                     Constants.Reversed.kBRDriveAbsoluteEncoderReversed),
-            
+
 
     };
 

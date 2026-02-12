@@ -14,12 +14,14 @@ import com.pathplanner.lib.auto.NamedCommands;
 
 // Controllers
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 // Subsystems
 import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.subsystems.Limelight;
+import frc.robot.subsystems.Shooter;
 
 // Commands
 import edu.wpi.first.wpilibj2.command.Command;
@@ -28,6 +30,7 @@ import frc.robot.commands.Driving.ResetRotations;
 import frc.robot.commands.Driving.SwerveJoystick;
 import frc.robot.commands.Limelight.AprilTagAlign;
 import frc.robot.commands.Limelight.LimeLightControl;
+import frc.robot.commands.ShooterControl;
 
 public class RobotContainer {
 
@@ -49,6 +52,7 @@ public class RobotContainer {
   private final AprilTagAlign mTestAlign;
   private final AprilTagAlign mAprilTagLockLeft;
   private final AprilTagAlign mAprilTagLockRight;
+  private final Shooter mShooter;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -75,6 +79,10 @@ public class RobotContainer {
     setUpAuto();
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
+
+    // Shooter
+    mShooter = new Shooter();
+    mShooter.setDefaultCommand(new ShooterControl(mShooter, mDroneComtroller));
     
     // Bind buttons and commands
     configureButtonBindings();
@@ -82,7 +90,8 @@ public class RobotContainer {
 
   // Assign buttons to commands
   private void configureButtonBindings() {
-    new JoystickButton(mDroneComtroller, Constants.Controllers.DrivingController.LeftButton).onTrue(new InstantCommand(() -> mSwerveSubsystem.resetYaw(), mSwerveSubsystem));
+    // new JoystickButton(mDroneComtroller, Constants.Controllers.DrivingController.LeftButton).onTrue(new InstantCommand(() -> mSwerveSubsystem.resetYaw(), mSwerveSubsystem));
+    // new JoystickButton(mDroneComtroller, Constants.Controllers.DrivingController.LeftButton).onTrue(mShooter.getDefaultCommand());
   }
 
   // Set up auto commands

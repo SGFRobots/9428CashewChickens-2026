@@ -4,11 +4,12 @@ import frc.robot.Constants;
 import frc.robot.Robot;
 
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.pathplanner.lib.util.PathPlannerLogging;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
-
+import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.hardware.CANcoder;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
@@ -53,8 +54,19 @@ public class Module {
             mDriveMotor = new TalonFX(pDrivePort);
             mTurnMotor = new SparkMax(pTurnPort, MotorType.kBrushless);
             // mTurnMotor.setInverted(pTurnReversed);
-            mDriveMotor.setNeutralMode(NeutralModeValue.Brake);
+            MotorOutputConfigs motorConfig = new MotorOutputConfigs();
+            if(pDriveReversed == true){
+                motorConfig.Inverted = InvertedValue.Clockwise_Positive;
+                mDriveMotor.getConfigurator().apply(motorConfig);
+            }
+            else{
+                motorConfig.Inverted = InvertedValue.CounterClockwise_Positive;
+                mDriveMotor.getConfigurator().apply(motorConfig);
+            }
+            
 
+            mDriveMotor.setNeutralMode(NeutralModeValue.Brake);
+            
             // Absolute Encoder
             absoluteEncoder = new CANcoder(pAbsoluteEncoderPort);
             AbsoluteEncoderReversed = pAbsoluteEncoderReversed;
