@@ -49,7 +49,7 @@ public class RobotContainer {
 
   // Commands
   private final ResetRotations mResetRotations;
-  private final AprilTagAlign mTestAlign;
+  // private final AprilTagAlign mTestAlign;
   private final AprilTagAlign mAprilTagLockLeft;
   private final AprilTagAlign mAprilTagLockRight;
   private final Shooter mShooter;
@@ -73,7 +73,7 @@ public class RobotContainer {
     mAprilTagLockRight = new AprilTagAlign(mSwerveSubsystem, mLeftLimelight, Constants.AprilTags.rightCoral[0], Constants.AprilTags.rightCoral[1], Constants.AprilTags.rightCoral[2]);
     // mAprilTagLockLeft = new AprilTagAlign(mSwerveSubsystem, mRightLimelight, -0.04, 0.34, 0);
     // mAprilTagLockRight = new AprilTagAlign(mSwerveSubsystem, mLeftLimelight, 0, 0.3, 0);
-    mTestAlign = new AprilTagAlign(mSwerveSubsystem, mLeftLimelight, Constants.AprilTags.rightCoral[0], Constants.AprilTags.rightCoral[1], Constants.AprilTags.rightCoral[2]);
+    // mTestAlign = new AprilTagAlign(mSwerveSubsystem, mLeftLimelight, Constants.AprilTags.rightCoral[0], Constants.AprilTags.rightCoral[1], Constants.AprilTags.rightCoral[2]);
     
     // Auto
     setUpAuto();

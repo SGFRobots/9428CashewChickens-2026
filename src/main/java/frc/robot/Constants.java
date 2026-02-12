@@ -20,7 +20,7 @@ import edu.wpi.first.math.geometry.Translation2d;
  */
 public final class Constants {        
     // public static final String ModuleNameSim = "Swerve Modules"; // DELETED IN THE GREAT RONIN CLEAN UP OF 2026
-    public static final boolean fieldOriented = false;
+    public static final boolean fieldOriented = true;
     
     public static final class MotorPorts { // MOTOR PORTS ALL CHANGE EXCPET GYRO + LIMELIHGT 
         // CAN IDs of driving motors
@@ -54,6 +54,7 @@ public final class Constants {
         // Shooter
         public static final int kLeftShooterID = 9;
         public static final int kRightShooterID = 10;
+        public static final int kKickerID = 99;
     }
 
     // Reversed motors
