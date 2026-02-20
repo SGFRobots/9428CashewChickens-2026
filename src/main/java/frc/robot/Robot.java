@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 // import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -33,7 +34,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-    stage = "auto"; // RONIN NOTE: WHY IS THIS HERE ? IT IS SET LATER IN AUTO INIT
+    stage = "init"; // RONIN NOTE: WHY IS THIS HERE ? IT IS SET LATER IN AUTO INIT
     m_robotContainer = new RobotContainer();
     CameraServer.startAutomaticCapture();
     mLED = new Spark(Constants.MotorPorts.LEDChannel);
@@ -76,12 +77,12 @@ public class Robot extends TimedRobot {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     m_speedControl = m_robotContainer.getSpeedControlCommand();
-    m_speedControl.schedule();
+    CommandScheduler.getInstance().schedule(m_speedControl);
     
     // m_robotContainer.resetRotations();
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
+      CommandScheduler.getInstance().schedule(m_autonomousCommand);;
     }
 
 
@@ -91,6 +92,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
+    stage = "auto";
     m_robotContainer.displayAligningState();
   }
   
@@ -105,7 +107,7 @@ public class Robot extends TimedRobot {
 
     m_speedControl = m_robotContainer.getSpeedControlCommand();
     if (!m_speedControl.isScheduled()) {
-      m_speedControl.schedule();
+      CommandScheduler.getInstance().schedule(m_speedControl);
     }
 
     if (m_autonomousCommand != null) {
@@ -121,6 +123,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
+    stage = "teleOp";
     // SmartDashboard.putNumber("Algeapos", m_robotContainer.getAlgePos());
     // m_elevatorCommand.schedule();
     m_robotContainer.displayAligningState();
@@ -145,4 +148,5 @@ public class Robot extends TimedRobot {
   /** This function is called periodically whilst in simulation. */
   @Override
   public void simulationPeriodic() {}
+
 }

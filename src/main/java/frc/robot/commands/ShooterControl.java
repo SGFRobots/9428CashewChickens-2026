@@ -1,8 +1,7 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.Shooter;
-import frc.robot.Robot;
-
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -27,9 +26,14 @@ public class ShooterControl extends Command {
 
     @Override 
     public void execute() {
-        if (Robot.stage.equals("teleOp")){
+        if (DriverStation.isTeleop()){
             Boolean buttonPressed = mController.getRawButton(Constants.Controllers.DrivingController.LeftButton);
             Boolean newlyPressed = mController.getRawButtonPressed(Constants.Controllers.DrivingController.LeftButton);
+            // if (buttonPressed) {
+            //     mShooter.runKicker(0.5);
+            // } else {
+            //     mShooter.stop();
+            // }
             if (newlyPressed) {
                 shooterRunning = true;
             } else if (shooterRunning) {
@@ -41,7 +45,8 @@ public class ShooterControl extends Command {
             }
             
             if(buttonPressed){
-                mShooter.setPower(1);
+                // mShooter.setPower(1);
+                System.out.println("running");
             }
             else{
                 mShooter.stop();

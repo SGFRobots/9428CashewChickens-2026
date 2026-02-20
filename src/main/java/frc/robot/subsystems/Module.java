@@ -1,7 +1,6 @@
 package frc.robot.subsystems;
 
 import frc.robot.Constants;
-import frc.robot.Robot;
 
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
@@ -16,6 +15,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -131,8 +131,8 @@ public class Module {
             driveOutput = (currentSpeeds.speedMetersPerSecond * Math.cos(turningPID.getError())) / Constants.Mechanical.kPhysicalMaxSpeedMetersPerSecond;
             turnOutput = turningPID.calculate(getCurrentAngleRad(), currentSpeeds.angle.getRadians()) * Constants.Mechanical.kPhysicalMaxAngularSpeedRadiansPerSecond;
             
-            if (Robot.stage.equals("teleOp") || aligning) {
-                driveOutput *= 2;
+            if (DriverStation.isTeleop() || aligning) {
+                // driveOutput *= 2;
             //     turnOutput *= 3;
                 speedChange();
             }

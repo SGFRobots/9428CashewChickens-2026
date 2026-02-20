@@ -1,10 +1,10 @@
 package frc.robot.commands.Driving;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
-import frc.robot.Robot;
 import frc.robot.subsystems.SwerveSubsystem;
 
 public class SpeedControl extends Command{
@@ -27,12 +27,12 @@ public class SpeedControl extends Command{
             mSubsystem.toggleFastMode(false);
             mSubsystem.toggleSlowMode(false);
 
-        } else if (Robot.stage.equals("auto")) {
+        } else if (DriverStation.isAutonomous()) {
             // Normal mode always during auto
             mSubsystem.toggleFastMode(false);
             mSubsystem.toggleSlowMode(false);
 
-        } else if (Robot.stage.equals("teleOp")) {
+        } else if (DriverStation.isTeleop()) {
             boolean fast = (mController.getRawAxis(Constants.Controllers.DrivingController.RightSwtich) == -1);
             mSubsystem.toggleFastMode(fast);
             boolean slow =(mController.getRawAxis(Constants.Controllers.DrivingController.RightSwtich) == 1);

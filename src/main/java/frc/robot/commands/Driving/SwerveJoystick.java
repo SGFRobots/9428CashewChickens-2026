@@ -3,9 +3,10 @@ package frc.robot.commands.Driving;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import frc.robot.Constants;
-
+import frc.robot.Robot;
 import frc.robot.subsystems.SwerveSubsystem;
 
 public class SwerveJoystick extends Command {
@@ -32,7 +33,7 @@ public class SwerveJoystick extends Command {
 
     @Override
     public void execute() {
-        if (!mSwerveSubsystem.getFindingPos()) {
+        if (DriverStation.isTeleop() && (!mSwerveSubsystem.getFindingPos())) {
             // Backup controller
             // double xSpeed = -mController.getRawAxis(Constants.Controllers.XBoxBackup.LeftYPort);
             // double ySpeed = -mController.getRawAxis(Constants.Controllers.XBoxBackup.LeftXPort);

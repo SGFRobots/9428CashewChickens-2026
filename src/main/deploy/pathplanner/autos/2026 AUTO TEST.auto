@@ -7,13 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red Middle"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "coralScoreRight"
+            "pathName": "New Path"
           }
         }
       ]
