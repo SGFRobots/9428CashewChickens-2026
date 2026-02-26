@@ -41,12 +41,12 @@ public class ShooterControl extends Command {
             }
 
             if (shooterCounter >= 10) {
-                mShooter.runKicker(0.5);                
+                mShooter.runKicker(0.75);                
             }
             
             if(buttonPressed){
-                // mShooter.setPower(1);
-                System.out.println("running");
+                mShooter.setPower(1);
+                // System.out.println("running");
             }
             else{
                 mShooter.stop();

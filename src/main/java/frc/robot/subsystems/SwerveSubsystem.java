@@ -8,7 +8,6 @@ import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
-import edu.wpi.first.math.Pair;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -80,6 +79,7 @@ public class SwerveSubsystem extends SubsystemBase {
     };
 
     private boolean findingPos = false;
+    private boolean doRejectUpdate = false;
 
     // Positions stored in mOdometer
     private final SwerveDriveOdometry mOdometer;
@@ -111,8 +111,7 @@ public class SwerveSubsystem extends SubsystemBase {
 
         mOdometer = new SwerveDriveOdometry(Constants.Mechanical.kDriveKinematics, getRotation2d(), getModulePositions(), new Pose2d(0,0, getRotation2d()));
 
-        LimelightHelpers.setPipelineIndex("limelight-left", 0);
-        LimelightHelpers.setPipelineIndex("limelight-right", 0);
+        LimelightHelpers.setPipelineIndex("limelight-fixed", 0);
         
         // Simulated field
         SmartDashboard.putData("Field", mField2d);
@@ -183,10 +182,6 @@ public class SwerveSubsystem extends SubsystemBase {
         // return MathUtil.inputModulus(mGyro.getAngle(), 0, 360);
     }
     
-    public Rotation2d getGyroRotation2d() {
-        return mGyro.getRotation2d();
-    }
-    
     public Rotation2d getRotation2d() {
         return Rotation2d.fromDegrees(getAngle());
     }
@@ -204,7 +199,7 @@ public class SwerveSubsystem extends SubsystemBase {
     public void periodic() {
         // Update modules' positions
         mOdometer.update(getRotation2d(), getModulePositions());
-        // updateOdometry();
+        LimeLightUpdate();
         // resetOdometry(poseEstimator.getEstimatedPosition());
         SmartDashboard.putNumber("Odometry x", mOdometer.getPoseMeters().getX());
         SmartDashboard.putNumber("Odometry y", mOdometer.getPoseMeters().getY());
@@ -220,9 +215,9 @@ public class SwerveSubsystem extends SubsystemBase {
         }
 
         // Sets robot and modules positions on the field
-        mField2d.setRobotPose(getPose());
-        // mField2d.setRobotPose(poseEstimator.getEstimatedPosition());
-        // mField2d.getObject(Constants.ModuleNameSim).setPoses(mModulePose);
+        // mField2d.setRobotPose(getPose());
+        poseEstimator.update(getRotation2d(), getModulePositions());
+        mField2d.setRobotPose(poseEstimator.getEstimatedPosition());
 
         // Logs in Swerve Tab
         // double loggingState[] = {
@@ -245,6 +240,7 @@ public class SwerveSubsystem extends SubsystemBase {
         SmartDashboard.putData("Field", mField2d);
         SmartDashboard.putNumber("raw gyro z", mGyro.getRawGyroZ());
         SmartDashboard.putNumber("velocity z", mGyro.getVelocityZ());
+        SmartDashboard.putString("PoseEstimator", poseEstimator.getEstimatedPosition().toString());
     }
 
     // Reset odometer
@@ -253,49 +249,32 @@ public class SwerveSubsystem extends SubsystemBase {
     }
 
     // Update odometry based on limelight
-    public void updateOdometry() {
-        // boolean update = ()
-        poseEstimator.update(getRotation2d(), getModulePositions());
-        Pair<Pose2d,Double> leftLimelightPos = getLimelightPose("limelight-left");
-        Pair<Pose2d,Double> rightLimelightPos = getLimelightPose("limelight-right");
-
-        Pose2d leftLLPose = leftLimelightPos.getFirst();
-        Pose2d rightLLPose = rightLimelightPos.getFirst();
-
-        double leftLLtimeStamp = leftLimelightPos.getSecond();
-        double rightLLtimeStamp = rightLimelightPos.getSecond();
+    public void LimeLightUpdate() {
+        LimelightHelpers.SetRobotOrientation("limelight-fixed", getHeading(), 0, 0, 0, 0, 0);
+        LimelightHelpers.PoseEstimate mt2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-fixed");
         
-        if (leftLLPose != null) {
-            SmartDashboard.putNumber("rotaion?", leftLLPose.getRotation().getDegrees());
+        doRejectUpdate = false;
+        // if our angular velocity is greater than 360 degrees per second, ignore vision updates
+        if(Math.abs(mGyro.getRate()) > 360)
+        {
+            doRejectUpdate = true;
         }
-        if (Math.abs(mGyro.getRawGyroZ()) < 720) {
-            if ((leftLLPose != null) && (rightLLPose != null)) {
-                Pose2d botpose = new Pose2d(new Translation2d((leftLLPose.getX() + rightLLPose.getX()) / 2, (leftLLPose.getY() + rightLLPose.getY()) / 2), poseEstimator.getEstimatedPosition().getRotation());
-                double botTimeStamp = (leftLLtimeStamp + rightLLtimeStamp) / 2;
-                poseEstimator.addVisionMeasurement(botpose, botTimeStamp);
-            }
-
-            if ((leftLLPose != null) && (rightLLPose == null)) {
-                poseEstimator.addVisionMeasurement(leftLLPose, leftLLtimeStamp);
-            }
-
-            if ((leftLLPose == null) && (rightLLPose != null)) {
-                poseEstimator.addVisionMeasurement(rightLLPose, rightLLtimeStamp);
-            }
+        if(mt2.tagCount == 0)
+        {
+            doRejectUpdate = true;
         }
+        SmartDashboard.putBoolean("settingPose", !doRejectUpdate);
+        if(!doRejectUpdate)
+        {
+            poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(0.7,0.7,9999999));
+            poseEstimator.addVisionMeasurement(
+                mt2.pose,
+                mt2.timestampSeconds);
+        SmartDashboard.putString("mt2Pose", mt2.pose.toString());
+        
+  }
     }
     
-    public Pair<Pose2d,Double> getLimelightPose(String limelightName) {
-        var alliance = DriverStation.getAlliance();
-        LimelightHelpers.SetRobotOrientation(limelightName, poseEstimator.getEstimatedPosition().getRotation().getDegrees(), 0, 0, 0, 0, 0);
-        LimelightHelpers.PoseEstimate megaTag2 = (alliance.get() == DriverStation.Alliance.Blue) ? LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(limelightName) : LimelightHelpers.getBotPoseEstimate_wpiRed_MegaTag2(limelightName);
-        if ((megaTag2 != null) && (Math.abs(mGyro.getRawGyroZ()) < 720) && (megaTag2.tagCount != 0)) {
-            poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(0.7, 0.7, 9999999));
-            return Pair.of(megaTag2.pose, megaTag2.timestampSeconds);
-        }
-        return Pair.of(null,0.0);
-    }
-
     public SwerveModulePosition[] getModulePositions() {
         return new SwerveModulePosition[] {
             modules[0].getPosition(),
