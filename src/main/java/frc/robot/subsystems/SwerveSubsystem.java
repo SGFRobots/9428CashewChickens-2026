@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import static frc.robot.Constants.Mechanical.kModulePositions;
+import static frc.robot.Constants.AprilTags.mField2d;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.ModuleConfig;
@@ -19,6 +20,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.system.plant.DCMotor;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -89,8 +91,6 @@ public class SwerveSubsystem extends SubsystemBase {
 
     private ChassisSpeeds chassisSpeeds = new ChassisSpeeds(0, 0, 0);
 
-    // Simulated field
-    public static final Field2d mField2d = new Field2d();
     // Simulated modules
     Pose2d[] mModulePose = {
             new Pose2d(),
@@ -243,6 +243,10 @@ public class SwerveSubsystem extends SubsystemBase {
         SmartDashboard.putString("PoseEstimator", poseEstimator.getEstimatedPosition().toString());
     }
 
+    public void setLLThrottle(int n) {
+        LimelightHelpers.SetThrottle("limelight-fixed", n);
+    }
+
     // Reset odometer
     public void resetOdometry(Pose2d pose) {
         mOdometer.resetPosition(getRotation2d(), getModulePositions(), pose);
@@ -252,14 +256,14 @@ public class SwerveSubsystem extends SubsystemBase {
     public void LimeLightUpdate() {
         LimelightHelpers.SetRobotOrientation("limelight-fixed", getHeading(), 0, 0, 0, 0, 0);
         LimelightHelpers.PoseEstimate mt2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-fixed");
-        
+
         doRejectUpdate = false;
         // if our angular velocity is greater than 360 degrees per second, ignore vision updates
         if(Math.abs(mGyro.getRate()) > 360)
         {
             doRejectUpdate = true;
         }
-        if(mt2.tagCount == 0)
+        if((mt2==null) || (mt2.tagCount == 0))
         {
             doRejectUpdate = true;
         }
@@ -269,10 +273,8 @@ public class SwerveSubsystem extends SubsystemBase {
             poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(0.7,0.7,9999999));
             poseEstimator.addVisionMeasurement(
                 mt2.pose,
-                mt2.timestampSeconds);
-        SmartDashboard.putString("mt2Pose", mt2.pose.toString());
-        
-  }
+                mt2.timestampSeconds);        
+        }
     }
     
     public SwerveModulePosition[] getModulePositions() {

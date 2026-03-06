@@ -6,7 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.system.plant.DCMotor;
-
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
 
@@ -55,7 +55,11 @@ public final class Constants {
         public static final int kLeftShooterID = 9;
         public static final int kRightShooterID = 10;
         public static final int kKickerID = 5;
-        public static final int kTurretID = 98;
+        public static final int kTurretID = 6;
+
+        // Intake
+        public static final int kUpDownID = 11;
+        public static final int kSpinnyID = 10;
     }
 
     // Reversed motors
@@ -172,6 +176,9 @@ public final class Constants {
         public static final double xErrorAllowed = 0.65;
         public static final double distanceErrorAllowed = 0.03;
         public static final double yawErrorAllowed = 1;
+
+        // Simulated Field
+        public static final Field2d mField2d = new Field2d();
     }
 
     public static final class PIDAlignment {

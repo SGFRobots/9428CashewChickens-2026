@@ -62,7 +62,9 @@ public class Robot extends TimedRobot {
   
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+    m_robotContainer.mSwerveSubsystem.setLLThrottle(150);
+  }
   
   @Override
   public void disabledPeriodic() {}
@@ -78,6 +80,8 @@ public class Robot extends TimedRobot {
 
     m_speedControl = m_robotContainer.getSpeedControlCommand();
     CommandScheduler.getInstance().schedule(m_speedControl);
+
+    m_robotContainer.mSwerveSubsystem.setLLThrottle(0);
     
     // m_robotContainer.resetRotations();
     // schedule the autonomous command (example)
@@ -104,6 +108,7 @@ public class Robot extends TimedRobot {
     // continue until interrupted by another command, remove
     // this line or comment it out.
     // m_elevatorCommand = m_robotContainer.getElevatorCommand(); // Commented out during the great ronin clean up of 2026
+    m_robotContainer.mSwerveSubsystem.setLLThrottle(0);
 
     m_speedControl = m_robotContainer.getSpeedControlCommand();
     if (!m_speedControl.isScheduled()) {

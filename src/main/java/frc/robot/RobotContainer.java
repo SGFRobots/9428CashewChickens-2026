@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 // Subsystems
 import frc.robot.subsystems.SwerveSubsystem;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Shooter;
 
@@ -31,6 +32,7 @@ import frc.robot.commands.Driving.SwerveJoystick;
 import frc.robot.commands.Limelight.AprilTagAlign;
 import frc.robot.commands.Limelight.LimeLightControl;
 import frc.robot.commands.ShooterControl;
+import frc.robot.commands.IntakeCommand;
 
 public class RobotContainer {
 
@@ -42,7 +44,7 @@ public class RobotContainer {
   private final SendableChooser<Command> autoChooser;
 
   // Subsystems
-  private final SwerveSubsystem mSwerveSubsystem;
+  public final SwerveSubsystem mSwerveSubsystem;
   private final SpeedControl mSpeedControl;
   private final Limelight mLeftLimelight;
   private final Limelight mRightLimelight;
@@ -53,6 +55,7 @@ public class RobotContainer {
   private final AprilTagAlign mAprilTagLockLeft;
   private final AprilTagAlign mAprilTagLockRight;
   private final Shooter mShooter;
+  private final Intake mIntake;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -83,6 +86,11 @@ public class RobotContainer {
     // Shooter
     mShooter = new Shooter();
     mShooter.setDefaultCommand(new ShooterControl(mShooter, mDroneComtroller));
+
+    // Intake
+
+    mIntake = new Intake();
+    mIntake.setDefaultCommand(new IntakeCommand(mIntake, mDroneComtroller));
     
     // Bind buttons and commands
     configureButtonBindings();
@@ -96,8 +104,8 @@ public class RobotContainer {
 
   // Set up auto commands
   private void setUpAuto() {
-    NamedCommands.registerCommand("reefAlignLeft", mAprilTagLockLeft);
-    NamedCommands.registerCommand("reefAlignRight", mAprilTagLockRight);
+    // NamedCommands.registerCommand("reefAlignLeft", mAprilTagLockLeft);
+    // NamedCommands.registerCommand("reefAlignRight", mAprilTagLockRight);
   }
 
   // get selected auto
