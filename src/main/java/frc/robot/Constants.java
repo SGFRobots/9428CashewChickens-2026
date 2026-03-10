@@ -72,7 +72,7 @@ public final class Constants {
     
         // Driving motors
         public static final boolean kFLDriveReversed = false;
-        public static final boolean kBLDriveReversed = false;
+        public static final boolean kBLDriveReversed = true;
         public static final boolean kFRDriveReversed = false;
         public static final boolean kBRDriveReversed = false;
 
@@ -126,9 +126,9 @@ public final class Constants {
         public static final double kRobotLengthMeters = 0.6477; //changed to 25.5 inches. was at 26.5 inches.
 
         // CANCoders' offsets ROBOT 1
-        public static final double kFLDriveAbsoluteEncoderOffset1 = -0.0483; 
-        public static final double kBLDriveAbsoluteEncoderOffset1 = 0.2954;
-        public static final double kFRDriveAbsoluteEncoderOffset1 = 0.0139; 
+        public static final double kFLDriveAbsoluteEncoderOffset1 = -0.0566; 
+        public static final double kBLDriveAbsoluteEncoderOffset1 = -0.1624;
+        public static final double kFRDriveAbsoluteEncoderOffset1 = -0.0227; 
         public static final double kBRDriveAbsoluteEncoderOffset1 = 0.4727; 
         
         // Cancoders' offsets ROBOT 2

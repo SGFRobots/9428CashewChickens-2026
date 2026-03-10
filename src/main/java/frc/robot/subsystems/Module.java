@@ -55,7 +55,7 @@ public class Module {
             mTurnMotor = new SparkMax(pTurnPort, MotorType.kBrushless);
             // mTurnMotor.setInverted(pTurnReversed);
             MotorOutputConfigs motorConfig = new MotorOutputConfigs();
-            if(pDriveReversed == true){
+            if(pDriveReversed){
                 motorConfig.Inverted = InvertedValue.Clockwise_Positive;
                 mDriveMotor.getConfigurator().apply(motorConfig);
             }

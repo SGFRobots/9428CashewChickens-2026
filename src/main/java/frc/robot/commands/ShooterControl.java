@@ -24,7 +24,7 @@ public class ShooterControl extends Command {
         shooterRunning = false;
         shooterCounter = 0;
 
-        turretPID = new PIDController(0.1, 0, 0);
+        turretPID = new PIDController(0.4, 0, 0);
 
         addRequirements(mShooter);
     }
@@ -60,10 +60,23 @@ public class ShooterControl extends Command {
         }
 
         // Auto Aim
-        long x_val = Math.round(LLData[0] * 100);
-        SmartDashboard.putNumber("camera_x", x_val);
-        double angle_val = LLData[3];
-        SmartDashboard.putNumber("camera_yaw", angle_val);
+        // SmartDashboard.putNumberArray("LLData",LLData);
+        // long x_val = Math.round(LLData[0] * 100);
+        // SmartDashboard.putNumber("camera_x", x_val);
+        // double angle_val = LLData[3];
+        // SmartDashboard.putNumber("camera_yaw", angle_val);
+        double x_val = LLData2.getX();
+        if(Math.abs(x_val) >= 0.1){
+            double turretpower = turretPID.calculate(x_val, 0);
+            mShooter.turn(turretpower);
+            SmartDashboard.putNumber("Turret Power", turretpower);
+
+        }
+        else{
+            mShooter.stopTurret();
+        }
+
+        
         // if (Math.abs(x_val) >= 1) {
         //     double turretpower = -turretPID.calculate(x_val, 0);
         //     // double turretpower *= (LLData[0] > 0) ? 0.05 : -0.05;
