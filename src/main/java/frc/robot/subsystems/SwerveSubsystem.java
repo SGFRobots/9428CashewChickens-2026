@@ -109,7 +109,7 @@ public class SwerveSubsystem extends SubsystemBase {
         zeroHeading();
         // resetYaw();
 
-        mOdometer = new SwerveDriveOdometry(Constants.Mechanical.kDriveKinematics, getRotation2d(), getModulePositions(), new Pose2d(0,0, getRotation2d()));
+        mOdometer = new SwerveDriveOdometry(Constants.Mechanical.kDriveKinematics, getRotation2d(), getModulePositions(), new Pose2d(5,10, getRotation2d()));
 
         LimelightHelpers.setPipelineIndex("limelight-fixed", 0);
         
@@ -154,6 +154,7 @@ public class SwerveSubsystem extends SubsystemBase {
     }
     
     public void zeroHeading() {
+        mGyro.resetDisplacement();
         mGyro.zeroYaw();
         var alliance = DriverStation.getAlliance();
         if (alliance.get() == DriverStation.Alliance.Blue) {

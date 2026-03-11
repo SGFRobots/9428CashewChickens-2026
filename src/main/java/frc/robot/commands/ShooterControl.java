@@ -24,7 +24,7 @@ public class ShooterControl extends Command {
         shooterRunning = false;
         shooterCounter = 0;
 
-        turretPID = new PIDController(0.4, 0, 0);
+        turretPID = new PIDController(0.31, 0, 0);
 
         addRequirements(mShooter);
     }
@@ -66,7 +66,7 @@ public class ShooterControl extends Command {
         // double angle_val = LLData[3];
         // SmartDashboard.putNumber("camera_yaw", angle_val);
         double x_val = LLData2.getX();
-        if(Math.abs(x_val) >= 0.1){
+        if(Math.abs(x_val) >= 0.00){
             double turretpower = turretPID.calculate(x_val, 0);
             mShooter.turn(turretpower);
             SmartDashboard.putNumber("Turret Power", turretpower);

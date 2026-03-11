@@ -33,6 +33,7 @@ public class Shooter extends SubsystemBase{
         LimelightTable = NetworkTableInstance.getDefault().getTable("limelight-turret");
         LimelightHelpers.setPipelineIndex("limelight-turret", 0);
         LimelightHelpers.SetIMUMode("limelight-turret", 2);
+        LimelightHelpers.setPriorityTagID("limelight-turret", 10);
 
     }
 
