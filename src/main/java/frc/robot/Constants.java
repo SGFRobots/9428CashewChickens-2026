@@ -137,6 +137,9 @@ public final class Constants {
         public static final double kFRDriveAbsoluteEncoderOffset2 = 0.0441;
         public static final double kBRDriveAbsoluteEncoderOffset2 = 0.0962;
 
+        // Motor Limits
+        public static final double turretLimit = 70;
+
         // Module Positions on Robot
         public static final Translation2d[] kModulePositions = {
             new Translation2d(kRobotLengthMeters / 2, kRobotWidthMeters / 2),

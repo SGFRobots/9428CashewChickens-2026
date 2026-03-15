@@ -29,8 +29,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.Driving.SpeedControl;
 import frc.robot.commands.Driving.ResetRotations;
 import frc.robot.commands.Driving.SwerveJoystick;
-import frc.robot.commands.Limelight.AprilTagAlign;
-import frc.robot.commands.Limelight.LimeLightControl;
 import frc.robot.commands.ShooterControl;
 import frc.robot.commands.IntakeCommand;
 
@@ -46,14 +44,9 @@ public class RobotContainer {
   // Subsystems
   public final SwerveSubsystem mSwerveSubsystem;
   private final SpeedControl mSpeedControl;
-  private final Limelight mLeftLimelight;
-  private final Limelight mRightLimelight;
 
   // Commands
   private final ResetRotations mResetRotations;
-  // private final AprilTagAlign mTestAlign;
-  private final AprilTagAlign mAprilTagLockLeft;
-  private final AprilTagAlign mAprilTagLockRight;
   private final Shooter mShooter;
   private final Intake mIntake;
 
@@ -64,20 +57,7 @@ public class RobotContainer {
     mSwerveSubsystem.setDefaultCommand(new SwerveJoystick(mSwerveSubsystem, mDroneComtroller));
     mResetRotations = new ResetRotations(mSwerveSubsystem);
     mSpeedControl = new SpeedControl(mSwerveSubsystem, mDroneComtroller);
-    
-    // Limelight
-    mLeftLimelight = new Limelight(Constants.MotorPorts.kLeftLimelightKey);
-    mLeftLimelight.setDefaultCommand(new LimeLightControl(mLeftLimelight));
-    mRightLimelight = new Limelight(Constants.MotorPorts.kRightLimelightKey);
-    mRightLimelight.setDefaultCommand(new LimeLightControl(mRightLimelight));
 
-    // Auto Alignment
-    mAprilTagLockLeft = new AprilTagAlign(mSwerveSubsystem, mRightLimelight, Constants.AprilTags.leftCoral[0], Constants.AprilTags.leftCoral[1], Constants.AprilTags.leftCoral[2]);
-    mAprilTagLockRight = new AprilTagAlign(mSwerveSubsystem, mLeftLimelight, Constants.AprilTags.rightCoral[0], Constants.AprilTags.rightCoral[1], Constants.AprilTags.rightCoral[2]);
-    // mAprilTagLockLeft = new AprilTagAlign(mSwerveSubsystem, mRightLimelight, -0.04, 0.34, 0);
-    // mAprilTagLockRight = new AprilTagAlign(mSwerveSubsystem, mLeftLimelight, 0, 0.3, 0);
-    // mTestAlign = new AprilTagAlign(mSwerveSubsystem, mLeftLimelight, Constants.AprilTags.rightCoral[0], Constants.AprilTags.rightCoral[1], Constants.AprilTags.rightCoral[2]);
-    
     // Auto
     setUpAuto();
     autoChooser = AutoBuilder.buildAutoChooser();

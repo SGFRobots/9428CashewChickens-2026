@@ -14,17 +14,20 @@ public class ShooterControl extends Command {
     private final GenericHID mController;
     private boolean shooterRunning;
     private int shooterCounter;
-    private double[] LLData;
-    private Pose3d LLData2;
+    private Pose3d LLData;
     public final PIDController turretPID;
+    public final PIDController resetPID;
+    public boolean resetting;
 
     public ShooterControl(Shooter pShooter, GenericHID pController) {
         mShooter = pShooter;
         mController = pController;
         shooterRunning = false;
         shooterCounter = 0;
+        resetting = false;
 
-        turretPID = new PIDController(0.31, 0, 0);
+        turretPID = new PIDController(2, 0, 0);
+        resetPID = new PIDController(0.02, 0, 0);
 
         addRequirements(mShooter);
     }
@@ -34,8 +37,7 @@ public class ShooterControl extends Command {
 
     @Override 
     public void execute() {
-        LLData = mShooter.getLLData();
-        LLData2 = mShooter.getLLData2();
+        LLData = mShooter.getLLData3d();
 
         if (DriverStation.isTeleop()){
             double buttonPressed = mController.getRawAxis(Constants.Controllers.DrivingController.RightHoldBtn);
@@ -60,32 +62,35 @@ public class ShooterControl extends Command {
         }
 
         // Auto Aim
-        // SmartDashboard.putNumberArray("LLData",LLData);
-        // long x_val = Math.round(LLData[0] * 100);
-        // SmartDashboard.putNumber("camera_x", x_val);
-        // double angle_val = LLData[3];
-        // SmartDashboard.putNumber("camera_yaw", angle_val);
-        double x_val = LLData2.getX();
-        if(Math.abs(x_val) >= 0.00){
-            double turretpower = turretPID.calculate(x_val, 0);
-            mShooter.turn(turretpower);
-            SmartDashboard.putNumber("Turret Power", turretpower);
+        double x_val = LLData.getX();
+        if (Math.abs(mShooter.getRelativePos()) < 70) {
+            if((Math.abs(x_val) >= 0.05)){
+                // double turretpower = x_val * 0.05;
+                double turretpower = turretPID.calculate(x_val, 0);
+                mShooter.turn(turretpower);
+                SmartDashboard.putNumber("Turret Power", turretpower);
+                
+            }
+            else{
+                mShooter.stopTurret();
+            }
+        } else {
+            resetting = true;
+        }
 
+        if (resetting) {
+            if (Math.abs(mShooter.getRelativePos()) >= 5) {
+                double power = resetPID.calculate(mShooter.getRelativePos(), 0);
+                mShooter.turn(power);
+            } else {
+                resetting = false;
+            }          
         }
-        else{
-            mShooter.stopTurret();
-        }
+
+        SmartDashboard.putNumber("turret position", mShooter.getRelativePos());
+        SmartDashboard.putBoolean("turret reset", resetting);
 
         
-        // if (Math.abs(x_val) >= 1) {
-        //     double turretpower = -turretPID.calculate(x_val, 0);
-        //     // double turretpower *= (LLData[0] > 0) ? 0.05 : -0.05;
-        //     // System.out.println(turretpower);
-        //     // turretpower = Math.abs(turretpower) > 0.08 ? turretpower : 0.0;
-        //     mShooter.turn(turretpower);
-        // } else {
-        //     mShooter.stopTurret();
-        // }
     }
 
     @Override

@@ -6,7 +6,6 @@ import com.revrobotics.spark.SparkMax;
 
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -20,9 +19,7 @@ public class Shooter extends SubsystemBase{
     private final TalonFX rightMotor;
     private final SparkMax kickerMotor;
     private final SparkMax turretMotor;
-
-    // Limelight
-    private final NetworkTable LimelightTable;
+    private double zeroPos;
 
     public Shooter() {
         leftMotor = new TalonFX(Constants.MotorPorts.kLeftShooterID);
@@ -30,7 +27,8 @@ public class Shooter extends SubsystemBase{
         kickerMotor = new SparkMax(Constants.MotorPorts.kKickerID, MotorType.kBrushless);
         turretMotor = new SparkMax(Constants.MotorPorts.kTurretID, MotorType.kBrushless);
 
-        LimelightTable = NetworkTableInstance.getDefault().getTable("limelight-turret");
+        setZeroPos();
+
         LimelightHelpers.setPipelineIndex("limelight-turret", 0);
         LimelightHelpers.SetIMUMode("limelight-turret", 2);
         LimelightHelpers.setPriorityTagID("limelight-turret", 10);
@@ -69,20 +67,24 @@ public class Shooter extends SubsystemBase{
         stopKicker();
     }
 
-    public double[] getLLData() {
-        // 
-        NetworkTableEntry data = LimelightTable.getEntry("camerapose_targetspace");
-        double[] dataArray = data.getDoubleArray(new double[]{0,0,56,0,0,0});
-        return dataArray;
+    public double getTurretPos() {
+        return turretMotor.getEncoder().getPosition();
     }
 
-    public Pose3d getLLData2() {
+    public double getRelativePos() {
+        return getTurretPos() - zeroPos;
+    }
+
+    public double getZeroPos() {
+        return zeroPos;
+    }
+
+    public void setZeroPos() {
+        zeroPos = getTurretPos();
+    }
+
+    public Pose3d getLLData3d() {
         Pose3d dataPose = LimelightHelpers.getTargetPose3d_CameraSpace("limelight-turret");
-        // LimelightHelpers.getIMUData("").robotYaw
-        double angle = Math.toDegrees(Math.asin(dataPose.getX()/ dataPose.getZ()));
-        // SmartDashboard.putNumber("llangle", LimelightHelpers.getIMUData("limelight-turret").robotYaw);
-        SmartDashboard.putNumber("llangle", Math.toDegrees(dataPose.getRotation().getZ()));
-        SmartDashboard.putNumber("wantedangle", angle);
         SmartDashboard.putNumber("llheartbeat", LimelightHelpers.getHeartbeat("limelight-turret"));
         SmartDashboard.putString("cameralimelight", dataPose.toString());
         return dataPose;

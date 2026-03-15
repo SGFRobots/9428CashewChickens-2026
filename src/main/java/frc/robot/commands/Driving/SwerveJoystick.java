@@ -6,7 +6,6 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import frc.robot.Constants;
-import frc.robot.Robot;
 import frc.robot.subsystems.SwerveSubsystem;
 
 public class SwerveJoystick extends Command {
@@ -40,8 +39,8 @@ public class SwerveJoystick extends Command {
             // double turningSpeed = -mController.getRawAxis(Constants.Controllers.XBoxBackup.RightXPort) / 2; 
             
             // Get Joystick inputs
-            double xSpeed = mController.getRawAxis(Constants.Controllers.DrivingController.LeftYPort);
-            double ySpeed = -mController.getRawAxis(Constants.Controllers.DrivingController.LeftXPort);
+            double xSpeed = -mController.getRawAxis(Constants.Controllers.DrivingController.LeftYPort);
+            double ySpeed = mController.getRawAxis(Constants.Controllers.DrivingController.LeftXPort);
             double turningSpeed = -mController.getRawAxis(Constants.Controllers.DrivingController.RightXPort) / 2; 
 
 
