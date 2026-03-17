@@ -43,12 +43,25 @@ public class Intake extends SubsystemBase{
     }
 
     public double getPos() {
-        return uppyDownyMotor.getAlternateEncoder().getPosition();
+        return uppyDownyMotor.getEncoder().getPosition();
+    }
+
+    public double getZeroPos() {
+        return uppyZero;
+    }
+
+    public double getDownPos() {
+        return uppyDown;
+    }
+
+
+    public double getRelativePos() {
+        return uppyZero + getPos();
     }
 
     public void zeroPos() {
         uppyZero = getPos();
-        uppyDown = uppyZero + 2;
+        uppyDown = uppyZero + Constants.Mechanical.intakeDownLimit;
     }
 
     public boolean checkPos() {

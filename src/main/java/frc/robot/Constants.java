@@ -20,7 +20,7 @@ import edu.wpi.first.math.geometry.Translation2d;
  */
 public final class Constants {        
     // public static final String ModuleNameSim = "Swerve Modules"; // DELETED IN THE GREAT RONIN CLEAN UP OF 2026
-    public static final boolean fieldOriented = true;
+    public static final boolean fieldOriented = false;
     
     public static final class MotorPorts { // MOTOR PORTS ALL CHANGE EXCPET GYRO + LIMELIHGT 
         // CAN IDs of driving motors
@@ -72,7 +72,7 @@ public final class Constants {
     
         // Driving motors
         public static final boolean kFLDriveReversed = false;
-        public static final boolean kBLDriveReversed = true;
+        public static final boolean kBLDriveReversed = false;
         public static final boolean kFRDriveReversed = false;
         public static final boolean kBRDriveReversed = false;
 
@@ -126,19 +126,15 @@ public final class Constants {
         public static final double kRobotLengthMeters = 0.6477; //changed to 25.5 inches. was at 26.5 inches.
 
         // CANCoders' offsets ROBOT 1
-        public static final double kFLDriveAbsoluteEncoderOffset1 = -0.0566; 
-        public static final double kBLDriveAbsoluteEncoderOffset1 = -0.1624;
-        public static final double kFRDriveAbsoluteEncoderOffset1 = -0.0227; 
-        public static final double kBRDriveAbsoluteEncoderOffset1 = 0.4727; 
-        
-        // Cancoders' offsets ROBOT 2
-        public static final double kFLDriveAbsoluteEncoderOffset2 = 0.2095;
-        public static final double kBLDriveAbsoluteEncoderOffset2 = -0.4854;
-        public static final double kFRDriveAbsoluteEncoderOffset2 = 0.0441;
-        public static final double kBRDriveAbsoluteEncoderOffset2 = 0.0962;
+        public static final double kFLDriveAbsoluteEncoderOffset1 = -0.0484; 
+        public static final double kBLDriveAbsoluteEncoderOffset1 = -0.4379;
+        public static final double kFRDriveAbsoluteEncoderOffset1 = -0.0195; 
+        public static final double kBRDriveAbsoluteEncoderOffset1 =  0.4763; 
 
         // Motor Limits
         public static final double turretLimit = 70;
+        public static final double intakeUpLimit = -6.643;
+        public static final double intakeDownLimit = 6.643;
 
         // Module Positions on Robot
         public static final Translation2d[] kModulePositions = {

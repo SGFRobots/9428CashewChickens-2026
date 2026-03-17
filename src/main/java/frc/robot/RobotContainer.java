@@ -31,6 +31,7 @@ import frc.robot.commands.Driving.ResetRotations;
 import frc.robot.commands.Driving.SwerveJoystick;
 import frc.robot.commands.ShooterControl;
 import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.OpenIntakeCommand;
 
 public class RobotContainer {
 
@@ -49,6 +50,7 @@ public class RobotContainer {
   private final ResetRotations mResetRotations;
   private final Shooter mShooter;
   private final Intake mIntake;
+  public final OpenIntakeCommand mOpenIntake;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -68,9 +70,9 @@ public class RobotContainer {
     mShooter.setDefaultCommand(new ShooterControl(mShooter, mDroneComtroller));
 
     // Intake
-
     mIntake = new Intake();
     mIntake.setDefaultCommand(new IntakeCommand(mIntake, mDroneComtroller));
+    mOpenIntake = new OpenIntakeCommand(mIntake);
     
     // Bind buttons and commands
     configureButtonBindings();

@@ -48,6 +48,10 @@ public class IntakeCommand extends Command{
             }
         }
 
+        SmartDashboard.putNumber("Intake0", mIntake.getZeroPos());
+        SmartDashboard.putNumber("IntakeLimit", mIntake.getDownPos());
+        SmartDashboard.putNumber("IntakePos", mIntake.getPos());
+
         
     }
 

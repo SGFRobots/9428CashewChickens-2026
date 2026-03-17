@@ -26,7 +26,7 @@ public class ShooterControl extends Command {
         shooterCounter = 0;
         resetting = false;
 
-        turretPID = new PIDController(2, 0, 0);
+        turretPID = new PIDController(0.2, 0, 0);
         resetPID = new PIDController(0.02, 0, 0);
 
         addRequirements(mShooter);
@@ -40,25 +40,33 @@ public class ShooterControl extends Command {
         LLData = mShooter.getLLData3d();
 
         if (DriverStation.isTeleop()){
-            double buttonPressed = mController.getRawAxis(Constants.Controllers.DrivingController.RightHoldBtn);
-            if ((buttonPressed == 1) && !shooterRunning) {
-                shooterRunning = true;
-            } else if (shooterRunning) {
-                shooterCounter++;
+            boolean revButtonPressed = mController.getRawButton(Constants.Controllers.DrivingController.LeftButton);
+            if (revButtonPressed) {
+                mShooter.stopShooter();
+                mShooter.runKicker(-0.4);                
+            } else {
+                double buttonPressed = mController.getRawAxis(Constants.Controllers.DrivingController.RightHoldBtn);
+                if ((buttonPressed == 1) && !shooterRunning) {
+                    shooterRunning = true;
+                } else if (shooterRunning) {
+                    shooterCounter++;
+                }
+                
+                if (shooterCounter >= 10) {
+                    mShooter.runKicker(0.75);                
+                }
+                
+                if(buttonPressed == 1){
+                    mShooter.setPower(1);
+                }
+                else{
+                    mShooter.stop();
+                    shooterCounter = 0;
+                    shooterRunning = false;
+                }
             }
 
-            if (shooterCounter >= 10) {
-                mShooter.runKicker(0.75);                
-            }
             
-            if(buttonPressed == 1){
-                mShooter.setPower(1);
-            }
-            else{
-                mShooter.stop();
-                shooterCounter = 0;
-                shooterRunning = false;
-            }
         }
 
         // Auto Aim
