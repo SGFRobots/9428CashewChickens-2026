@@ -1,6 +1,6 @@
 {
-  "robotWidth": 0.889,
-  "robotLength": 0.889,
+  "robotWidth": 0.7778,
+  "robotLength": 0.7778,
   "holonomicMode": true,
   "pathFolders": [
     "Blue Right Start",

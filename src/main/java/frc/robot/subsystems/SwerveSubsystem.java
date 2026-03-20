@@ -9,6 +9,7 @@ import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
+import edu.wpi.first.math.Pair;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -22,7 +23,6 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -101,19 +101,22 @@ public class SwerveSubsystem extends SubsystemBase {
     // Constructor
     public SwerveSubsystem() {
         
+        // Gyro
         mGyro = new AHRS(AHRS.NavXComType.kUSB1);
         zeroHeading();
         // resetYaw();
 
-        mOdometer = new SwerveDriveOdometry(Constants.Mechanical.kDriveKinematics, getRotation2d(), getModulePositions(), new Pose2d(5,10, getRotation2d()));
-
-        LimelightHelpers.setPipelineIndex("limelight-fixed", 0);
+        // Limelight and Positioning
+        mOdometer = new SwerveDriveOdometry(Constants.Mechanical.kDriveKinematics, getRotation2d(), getModulePositions(), new Pose2d(0,0, getRotation2d()));
+        poseEstimator = new SwerveDrivePoseEstimator(Constants.Mechanical.kDriveKinematics, getRotation2d(), getModulePositions(), getPose());
+        LimelightHelpers.setPipelineIndex("limelight-back", 0);
+        LimelightHelpers.setPipelineIndex("limelight-front", 0);
+        LimelightHelpers.SetIMUMode("limelight-back", 1);
         
         // Simulated field
         SmartDashboard.putData("Field", mField2d);
 
-        poseEstimator = new SwerveDrivePoseEstimator(Constants.Mechanical.kDriveKinematics, getRotation2d(), getModulePositions(), getPose());
-
+        // Pathplanner
         pathPlannerConfig = new RobotConfig(56.155, 7.396, new ModuleConfig(0.051, 4.7, 0.96, DCMotor.getKrakenX60(1), 6.12, 60, 1), kModulePositions);
         try{
             pathPlannerConfig = RobotConfig.fromGUISettings();
@@ -195,8 +198,10 @@ public class SwerveSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         // Update modules' positions
+        LimelightHelpers.SetIMUMode("limelight-back", 4);
         mOdometer.update(getRotation2d(), getModulePositions());
-        LimeLightUpdate();
+        // LimeLightUpdate();
+        LimeLightUpdateDouble();
         // resetOdometry(poseEstimator.getEstimatedPosition());
         SmartDashboard.putNumber("Odometry x", mOdometer.getPoseMeters().getX());
         SmartDashboard.putNumber("Odometry y", mOdometer.getPoseMeters().getY());
@@ -241,7 +246,7 @@ public class SwerveSubsystem extends SubsystemBase {
     }
 
     public void setLLThrottle(int n) {
-        LimelightHelpers.SetThrottle("limelight-fixed", n);
+        LimelightHelpers.SetThrottle("limelight-back", n);
     }
 
     // Reset odometer
@@ -251,8 +256,8 @@ public class SwerveSubsystem extends SubsystemBase {
 
     // Update odometry based on limelight
     public void LimeLightUpdate() {
-        LimelightHelpers.SetRobotOrientation("limelight-fixed", getHeading(), 0, 0, 0, 0, 0);
-        LimelightHelpers.PoseEstimate mt2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-fixed");
+        LimelightHelpers.SetRobotOrientation("limelight-back", getHeading(), 0, 0, 0, 0, 0);
+        LimelightHelpers.PoseEstimate mt2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-back");
 
         doRejectUpdate = false;
         // if our angular velocity is greater than 360 degrees per second, ignore vision updates
@@ -272,6 +277,51 @@ public class SwerveSubsystem extends SubsystemBase {
                 mt2.pose,
                 mt2.timestampSeconds);        
         }
+    }
+
+    public final void LimeLightUpdateDouble() {
+        poseEstimator.update(getRotation2d(), getModulePositions());
+        Pair<Pose2d,Double> leftLimelightPos = getLimelightPose("limelight-back");
+        Pair<Pose2d,Double> rightLimelightPos = getLimelightPose("limelight-front");
+
+        Pose2d leftLLPose = leftLimelightPos.getFirst();
+        Pose2d rightLLPose = rightLimelightPos.getFirst();
+
+        double leftLLtimeStamp = leftLimelightPos.getSecond();
+        double rightLLtimeStamp = rightLimelightPos.getSecond();
+        
+        if (leftLLPose != null) {
+            SmartDashboard.putNumber("rotaion?", leftLLPose.getRotation().getDegrees());
+        }
+        if (mGyro.getRate() < 360) {
+            if ((leftLLPose != null) && (rightLLPose != null)) {
+                Pose2d botpose = new Pose2d(new Translation2d((leftLLPose.getX() + rightLLPose.getX()) / 2, (leftLLPose.getY() + rightLLPose.getY()) / 2), poseEstimator.getEstimatedPosition().getRotation());
+                // Pose2d botpose = new Pose2d(new Translation2d((leftLLPose.getX() + rightLLPose.getX()) / 2, (leftLLPose.getY() + rightLLPose.getY()) / 2), getRotation2d());
+                double botTimeStamp = (leftLLtimeStamp + rightLLtimeStamp) / 2;
+                poseEstimator.addVisionMeasurement(botpose, botTimeStamp);
+            }
+
+            if ((leftLLPose != null) && (rightLLPose == null)) {
+                poseEstimator.addVisionMeasurement(leftLLPose, leftLLtimeStamp);
+            }
+
+            if ((leftLLPose == null) && (rightLLPose != null)) {
+                poseEstimator.addVisionMeasurement(rightLLPose, rightLLtimeStamp);
+            }
+        }
+    }
+
+    public Pair<Pose2d,Double> getLimelightPose(String limelightName) {
+        // LimelightHelpers.SetRobotOrientation(limelightName, poseEstimator.getEstimatedPosition().getRotation().getDegrees(), 0, 0, 0, 0, 0);
+        if (limelightName.equals("limelight-back")) {
+            LimelightHelpers.SetRobotOrientation(limelightName, getHeading(), 0, 0, 0, 0, 0);
+        }
+        LimelightHelpers.PoseEstimate megaTag2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(limelightName);
+        if ((megaTag2 != null) && (mGyro.getRate() < 360) && (megaTag2.tagCount != 0)) {
+            poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(0.7, 0.7, 9999999));
+            return Pair.of(megaTag2.pose, megaTag2.timestampSeconds);
+        }
+        return Pair.of(null,0.0);
     }
     
     public SwerveModulePosition[] getModulePositions() {

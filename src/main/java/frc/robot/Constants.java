@@ -23,23 +23,23 @@ public final class Constants {
     public static final boolean fieldOriented = false;
     
     public static final class MotorPorts { // MOTOR PORTS ALL CHANGE EXCPET GYRO + LIMELIHGT 
-        // CAN IDs of driving motors
-        public static final int kFLDriveMotorID = 1; 
-        public static final int kBLDriveMotorID = 4;
-        public static final int kFRDriveMotorID = 2;
-        public static final int kBRDriveMotorID = 3;
+        // Pheonix IDs of driving motors
+        public static final int kFLDriveMotorID = 3; 
+        public static final int kBLDriveMotorID = 2;
+        public static final int kFRDriveMotorID = 4;
+        public static final int kBRDriveMotorID = 1;
 
         // CAN IDs of turning motors
-        public static final int kFLTurningMotorID = 1;
-        public static final int kBLTurningMotorID = 4;
-        public static final int kFRTurningMotorID = 2;
-        public static final int kBRTurningMotorID = 3;
+        public static final int kFLTurningMotorID = 3;
+        public static final int kBLTurningMotorID = 2;
+        public static final int kFRTurningMotorID = 4;
+        public static final int kBRTurningMotorID = 1;
 
         // CAN IDs of CANCoders
-        public static final int kFLDriveAbsoluteEncoderID = 5;
-        public static final int kBLDriveAbsoluteEncoderID = 8;
-        public static final int kFRDriveAbsoluteEncoderID = 6;
-        public static final int kBRDriveAbsoluteEncoderID = 7;
+        public static final int kFLDriveAbsoluteEncoderID = 7;
+        public static final int kBLDriveAbsoluteEncoderID = 6;
+        public static final int kFRDriveAbsoluteEncoderID = 8;
+        public static final int kBRDriveAbsoluteEncoderID = 5;
         // 1 4 2 3 5 8 6 7 
         // Gyro
         public static final int kGyroPort = 2;
@@ -121,15 +121,15 @@ public final class Constants {
 
         
         // Distance between right and left wheels (in meters)
-        public static final double kRobotWidthMeters = 0.6477; //change
+        public static final double kRobotWidthMeters = 0.6858; //change
         // Distance between front and back wheels (in meters)
-        public static final double kRobotLengthMeters = 0.6477; //changed to 25.5 inches. was at 26.5 inches.
+        public static final double kRobotLengthMeters = 0.6858; //changed to 25.5 inches. was at 26.5 inches.
 
         // CANCoders' offsets ROBOT 1
-        public static final double kFLDriveAbsoluteEncoderOffset1 = -0.0484; 
-        public static final double kBLDriveAbsoluteEncoderOffset1 = -0.4379;
-        public static final double kFRDriveAbsoluteEncoderOffset1 = -0.0195; 
-        public static final double kBRDriveAbsoluteEncoderOffset1 =  0.4763; 
+        public static final double kFLDriveAbsoluteEncoderOffset1 = 0.4763;  // 1 --> 3
+        public static final double kBLDriveAbsoluteEncoderOffset1 = -0.0195; // 4 --> 2
+        public static final double kFRDriveAbsoluteEncoderOffset1 = -0.4379; // 2 --> 4
+        public static final double kBRDriveAbsoluteEncoderOffset1 = -0.0484; // 0.4763; // 3 --> 1
 
         // Motor Limits
         public static final double turretLimit = 70;
