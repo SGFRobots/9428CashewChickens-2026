@@ -52,8 +52,8 @@ public final class Constants {
         public static final String kRightLimelightKey = "limelight-right";
 
         // Shooter
-        public static final int kLeftShooterID = 9;
-        public static final int kRightShooterID = 10;
+        public static final int kLeftShooterID = 9; // deprecated
+        public static final int kRightShooterID = 10; // deprecated
         public static final int kKickerID = 5;
         public static final int kTurretID = 6;
 

@@ -4,11 +4,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 import frc.robot.subsystems.Intake;
 
-import java.util.ResourceBundle.Control;
-
-import javax.naming.TimeLimitExceededException;
-
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;

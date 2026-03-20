@@ -2,19 +2,14 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.Shooter;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj2.command.Command;
 
 public class ShooterControl extends Command {
     private final Shooter mShooter;
     private final GenericHID mController;
-    private boolean shooterRunning;
-    private int shooterCounter;
-    private Pose3d LLData;
     public final PIDController turretPID;
     public final PIDController resetPID;
     public boolean resetting;
@@ -22,8 +17,6 @@ public class ShooterControl extends Command {
     public ShooterControl(Shooter pShooter, GenericHID pController) {
         mShooter = pShooter;
         mController = pController;
-        shooterRunning = false;
-        shooterCounter = 0;
         resetting = false;
 
         turretPID = new PIDController(0.2, 0, 0);
@@ -37,68 +30,55 @@ public class ShooterControl extends Command {
 
     @Override 
     public void execute() {
-        LLData = mShooter.getLLData3d();
-
         if (DriverStation.isTeleop()){
-            boolean revButtonPressed = mController.getRawButton(Constants.Controllers.DrivingController.LeftButton);
-            if (revButtonPressed) {
-                mShooter.stopShooter();
-                mShooter.runKicker(-0.4);                
+            double buttonPressed = mController.getRawAxis(Constants.Controllers.DrivingController.RightHoldBtn);
+            if (buttonPressed == 1) {
+                mShooter.shoot(0.6);                
             } else {
-                double buttonPressed = mController.getRawAxis(Constants.Controllers.DrivingController.RightHoldBtn);
-                if ((buttonPressed == 1) && !shooterRunning) {
-                    shooterRunning = true;
-                } else if (shooterRunning) {
-                    shooterCounter++;
-                }
-                
-                if (shooterCounter >= 10) {
-                    mShooter.runKicker(0.75);                
-                }
-                
-                if(buttonPressed == 1){
-                    mShooter.setPower(1);
-                }
-                else{
-                    mShooter.stop();
-                    shooterCounter = 0;
-                    shooterRunning = false;
-                }
+                mShooter.stop();
             }
 
+                // They call me doctor worm.
+                // Good morning how are you?
+                // I'm Doctor Worm.
+                // I'm interested in things
+                // I'm not a real doctor 
+                // But I am a real worm
+                // I am an actual worm
+                // I live like a worm
+                // I like to play the drums
+                // I think I'm getting good
+                // But I can handle criticism
+                // I'll show you what I know
+                // And you can tell me if you think
+                // I'm getting better on the drums
+                // I'll leave the front unlocked
+                // 'Cause I can't hear the doorbell
+                // When I get into it, I can't tell if you are
+                // Watching me twirling the stick
+                // When I give the signal, my friend
+                // Rabbi Vole will play the solo
+                // Someday, somebody else besides me will
+                // Call me by my stage name, they will
+                // Call me Doctor Worm
+                // Good morning, how are you?
+                // I'm Doctor Worm
+                // I'm interested in things
+                // I'm not a real doctor
+                // But I am a real worm
+                // I am an actual worm
+                // I live like a worm
+                // And I like to play the drums
+                // I think I'm getting good
+                // But I can handle criticism
+                // I'll show you what I know
+                // And you can tell me if you think
+                // I'm getting better on the drums
+                // I'm not a real doctor
+                // But they call me Doctor Worm
             
         }
-
-        // Auto Aim
-        double x_val = LLData.getX();
-        if (Math.abs(mShooter.getRelativePos()) < 70) {
-            if((Math.abs(x_val) >= 0.05)){
-                // double turretpower = x_val * 0.05;
-                double turretpower = turretPID.calculate(x_val, 0);
-                mShooter.turn(turretpower);
-                SmartDashboard.putNumber("Turret Power", turretpower);
-                
-            }
-            else{
-                mShooter.stopTurret();
-            }
-        } else {
-            resetting = true;
-        }
-
-        if (resetting) {
-            if (Math.abs(mShooter.getRelativePos()) >= 5) {
-                double power = resetPID.calculate(mShooter.getRelativePos(), 0);
-                mShooter.turn(power);
-            } else {
-                resetting = false;
-            }          
-        }
-
-        SmartDashboard.putNumber("turret position", mShooter.getRelativePos());
-        SmartDashboard.putBoolean("turret reset", resetting);
-
-        
+     
     }
 
     @Override

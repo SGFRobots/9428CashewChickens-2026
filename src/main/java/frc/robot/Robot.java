@@ -109,7 +109,7 @@ public class Robot extends TimedRobot {
     // this line or comment it out.
     // m_elevatorCommand = m_robotContainer.getElevatorCommand(); // Commented out during the great ronin clean up of 2026
     m_robotContainer.mSwerveSubsystem.setLLThrottle(0);
-    CommandScheduler.getInstance().schedule(m_robotContainer.mOpenIntake);
+    // CommandScheduler.getInstance().schedule(m_robotContainer.mOpenIntake);
 
     m_speedControl = m_robotContainer.getSpeedControlCommand();
     if (!m_speedControl.isScheduled()) {
