@@ -36,7 +36,6 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     stage = "init"; // RONIN NOTE: WHY IS THIS HERE ? IT IS SET LATER IN AUTO INIT
     m_robotContainer = new RobotContainer();
-    CameraServer.startAutomaticCapture();
     mLED = new Spark(Constants.MotorPorts.LEDChannel);
     
 
@@ -82,6 +81,9 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().schedule(m_speedControl);
 
     m_robotContainer.mSwerveSubsystem.setLLThrottle(0);
+    CommandScheduler.getInstance().schedule(m_robotContainer.mIntakeAuto);
+    CommandScheduler.getInstance().schedule(m_robotContainer.mOpenIntake);
+
     
     // m_robotContainer.resetRotations();
     // schedule the autonomous command (example)
@@ -109,7 +111,6 @@ public class Robot extends TimedRobot {
     // this line or comment it out.
     // m_elevatorCommand = m_robotContainer.getElevatorCommand(); // Commented out during the great ronin clean up of 2026
     m_robotContainer.mSwerveSubsystem.setLLThrottle(0);
-    // CommandScheduler.getInstance().schedule(m_robotContainer.mOpenIntake);
 
     m_speedControl = m_robotContainer.getSpeedControlCommand();
     if (!m_speedControl.isScheduled()) {

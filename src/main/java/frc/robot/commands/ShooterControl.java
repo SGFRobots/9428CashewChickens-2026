@@ -31,11 +31,16 @@ public class ShooterControl extends Command {
     @Override 
     public void execute() {
         if (DriverStation.isTeleop()){
-            double buttonPressed = mController.getRawAxis(Constants.Controllers.DrivingController.RightHoldBtn);
-            if (buttonPressed == 1) {
-                mShooter.shoot(0.6);                
+            boolean revButtonPressed = mController.getRawButton(Constants.Controllers.DrivingController.LeftButton);
+            if (revButtonPressed) {
+                mShooter.shoot(-0.4);
             } else {
-                mShooter.stop();
+                double buttonPressed = mController.getRawAxis(Constants.Controllers.DrivingController.RightHoldBtn);
+                if (buttonPressed == 1) {
+                    mShooter.shoot(0.6);                
+                } else {
+                    mShooter.stop();
+                }
             }
 
                 // They call me doctor worm.

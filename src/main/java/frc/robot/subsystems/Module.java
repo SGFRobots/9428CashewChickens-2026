@@ -138,7 +138,7 @@ public class Module {
             }
 
             mDriveMotor.set(driveOutput);
-            mTurnMotor.set(turnOutput/2); 
+            mTurnMotor.set(turnOutput); 
             
             // Telemetry
             SmartDashboard.putNumber("before" + mDriveMotor.getDeviceID(), pNewState.angle.getDegrees());

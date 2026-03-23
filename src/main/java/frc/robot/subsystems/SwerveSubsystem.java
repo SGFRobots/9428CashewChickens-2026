@@ -133,8 +133,8 @@ public class SwerveSubsystem extends SubsystemBase {
             this::getRobotRelativeSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
             (speeds, feedforwards) -> driveRobotRelative(speeds), // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds. Also optionally outputs individual module feedforwards
             new PPHolonomicDriveController( // PPHolonomicController is the built in path following controller for holonomic drive trains
-                new PIDConstants(1, 0.0, 0.0), // Translation PID constants
-                new PIDConstants(1, 0.0, 0.0) // Rotation PID constants
+                new PIDConstants(15, 0.0, 0.0), // Translation PID constants
+                new PIDConstants(15, 0.0, 0.0) // Rotation PID constants
             ),
             pathPlannerConfig, // The robot configuration
             () -> {
@@ -156,10 +156,16 @@ public class SwerveSubsystem extends SubsystemBase {
         mGyro.resetDisplacement();
         mGyro.zeroYaw();
         var alliance = DriverStation.getAlliance();
-        if (alliance.get() == DriverStation.Alliance.Blue) {
-            mGyro.setAngleAdjustment(180);
+        if (DriverStation.getLocation().getAsInt() == 1) {
+            mGyro.setAngleAdjustment(90);
+        } else if (DriverStation.getLocation().getAsInt() == 3) {
+            mGyro.setAngleAdjustment(270);
         } else {
-            mGyro.setAngleAdjustment(0);
+            if (alliance.get() == DriverStation.Alliance.Blue) {
+                mGyro.setAngleAdjustment(90);
+            } else {
+                mGyro.setAngleAdjustment(0);
+            }
         }
     }
 
@@ -167,7 +173,7 @@ public class SwerveSubsystem extends SubsystemBase {
         mGyro.reset();
         var alliance = DriverStation.getAlliance();
         if (alliance.get() == DriverStation.Alliance.Blue) {
-            mGyro.setAngleAdjustment(180);
+            mGyro.setAngleAdjustment(270);
         } else {
             mGyro.setAngleAdjustment(0);
         }
@@ -299,14 +305,21 @@ public class SwerveSubsystem extends SubsystemBase {
                 // Pose2d botpose = new Pose2d(new Translation2d((leftLLPose.getX() + rightLLPose.getX()) / 2, (leftLLPose.getY() + rightLLPose.getY()) / 2), getRotation2d());
                 double botTimeStamp = (leftLLtimeStamp + rightLLtimeStamp) / 2;
                 poseEstimator.addVisionMeasurement(botpose, botTimeStamp);
+                SmartDashboard.putString("LLUpdate", "Both");
             }
 
-            if ((leftLLPose != null) && (rightLLPose == null)) {
+            else if ((leftLLPose != null) && (rightLLPose == null)) {
                 poseEstimator.addVisionMeasurement(leftLLPose, leftLLtimeStamp);
+                SmartDashboard.putString("LLUpdate", "Left");
             }
 
-            if ((leftLLPose == null) && (rightLLPose != null)) {
+            else if ((leftLLPose == null) && (rightLLPose != null)) {
                 poseEstimator.addVisionMeasurement(rightLLPose, rightLLtimeStamp);
+                SmartDashboard.putString("LLUpdate", "Right");
+            }
+
+            else {
+                SmartDashboard.putString("LLUpdate", "Neither");
             }
         }
     }

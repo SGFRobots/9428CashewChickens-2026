@@ -8,6 +8,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
+import java.util.jar.Attributes.Name;
+
 // Auto
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
@@ -30,6 +32,8 @@ import frc.robot.commands.Driving.SpeedControl;
 import frc.robot.commands.Driving.ResetRotations;
 import frc.robot.commands.Driving.SwerveJoystick;
 import frc.robot.commands.ShooterControl;
+import frc.robot.commands.Auto.IntakeAuto;
+import frc.robot.commands.Auto.ShooterAuto;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.OpenIntakeCommand;
 
@@ -51,6 +55,8 @@ public class RobotContainer {
   private final Shooter mShooter;
   private final Intake mIntake;
   public final OpenIntakeCommand mOpenIntake;
+  public final IntakeAuto mIntakeAuto;
+  private final ShooterAuto mShooterAuto;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -60,20 +66,24 @@ public class RobotContainer {
     mResetRotations = new ResetRotations(mSwerveSubsystem);
     mSpeedControl = new SpeedControl(mSwerveSubsystem, mDroneComtroller);
 
-    // Auto
-    setUpAuto();
-    autoChooser = AutoBuilder.buildAutoChooser();
-    SmartDashboard.putData("Auto Chooser", autoChooser);
-
     // Shooter
     mShooter = new Shooter();
     mShooter.setDefaultCommand(new ShooterControl(mShooter, mDroneComtroller));
-
+    
     // Intake
     mIntake = new Intake();
     mIntake.setDefaultCommand(new IntakeCommand(mIntake, mDroneComtroller));
     mOpenIntake = new OpenIntakeCommand(mIntake);
     
+    // Auto Commands
+    mIntakeAuto = new IntakeAuto(mIntake);
+    mShooterAuto = new ShooterAuto(mShooter);
+
+    // Auto
+    setUpAuto();
+    autoChooser = AutoBuilder.buildAutoChooser();
+    SmartDashboard.putData("Auto Chooser", autoChooser);
+
     // Bind buttons and commands
     configureButtonBindings();
   }
@@ -86,8 +96,8 @@ public class RobotContainer {
 
   // Set up auto commands
   private void setUpAuto() {
-    // NamedCommands.registerCommand("reefAlignLeft", mAprilTagLockLeft);
-    // NamedCommands.registerCommand("reefAlignRight", mAprilTagLockRight);
+    NamedCommands.registerCommand("Intake", mIntakeAuto);
+    NamedCommands.registerCommand("Shoot", mShooterAuto);
   }
 
   // get selected auto
