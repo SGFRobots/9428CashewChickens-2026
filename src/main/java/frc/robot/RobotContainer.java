@@ -8,8 +8,6 @@ package frc.robot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
-import java.util.jar.Attributes.Name;
-
 // Auto
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
@@ -22,8 +20,8 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 // Subsystems
 import frc.robot.subsystems.SwerveSubsystem;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Shooter;
 
 // Commands
@@ -34,6 +32,7 @@ import frc.robot.commands.Driving.SwerveJoystick;
 import frc.robot.commands.ShooterControl;
 import frc.robot.commands.Auto.IntakeAuto;
 import frc.robot.commands.Auto.ShooterAuto;
+import frc.robot.commands.ClimberControl;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.OpenIntakeCommand;
 
@@ -41,7 +40,7 @@ public class RobotContainer {
 
   // Controllers
   public static final GenericHID mDroneComtroller = new GenericHID(Constants.Controllers.DrivingControllerPort);
-  public static final GenericHID mXBoxController = new GenericHID(Constants.Controllers.XBoxControllerPort);
+  public static final GenericHID mRoninController = new GenericHID(Constants.Controllers.RoninControllerPort);
 
   // auto
   private final SendableChooser<Command> autoChooser;
@@ -49,11 +48,12 @@ public class RobotContainer {
   // Subsystems
   public final SwerveSubsystem mSwerveSubsystem;
   private final SpeedControl mSpeedControl;
+  private final Shooter mShooter;
+  private final Intake mIntake;
+  private final Climber mClimber;
 
   // Commands
   private final ResetRotations mResetRotations;
-  private final Shooter mShooter;
-  private final Intake mIntake;
   public final OpenIntakeCommand mOpenIntake;
   public final IntakeAuto mIntakeAuto;
   private final ShooterAuto mShooterAuto;
@@ -68,12 +68,16 @@ public class RobotContainer {
 
     // Shooter
     mShooter = new Shooter();
-    mShooter.setDefaultCommand(new ShooterControl(mShooter, mDroneComtroller));
+    mShooter.setDefaultCommand(new ShooterControl(mShooter, mRoninController));
     
     // Intake
     mIntake = new Intake();
     mIntake.setDefaultCommand(new IntakeCommand(mIntake, mDroneComtroller));
     mOpenIntake = new OpenIntakeCommand(mIntake);
+
+    // Climber
+    mClimber = new Climber();
+    mClimber.setDefaultCommand(new ClimberControl(mClimber, mRoninController));
     
     // Auto Commands
     mIntakeAuto = new IntakeAuto(mIntake);
@@ -90,8 +94,8 @@ public class RobotContainer {
 
   // Assign buttons to commands
   private void configureButtonBindings() {
-    // new JoystickButton(mDroneComtroller, Constants.Controllers.DrivingController.LeftButton).onTrue(new InstantCommand(() -> mSwerveSubsystem.resetYaw(), mSwerveSubsystem));
     // new JoystickButton(mDroneComtroller, Constants.Controllers.DrivingController.LeftButton).onTrue(mShooter.getDefaultCommand());
+    new JoystickButton(mDroneComtroller, Constants.Controllers.DrivingController.LeftButton).onTrue(new InstantCommand(() -> mSwerveSubsystem.resetYaw(), mSwerveSubsystem));
   }
 
   // Set up auto commands

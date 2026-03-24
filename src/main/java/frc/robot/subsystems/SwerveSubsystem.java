@@ -170,13 +170,9 @@ public class SwerveSubsystem extends SubsystemBase {
     }
 
     public void resetYaw() {
-        mGyro.reset();
-        var alliance = DriverStation.getAlliance();
-        if (alliance.get() == DriverStation.Alliance.Blue) {
-            mGyro.setAngleAdjustment(270);
-        } else {
-            mGyro.setAngleAdjustment(0);
-        }
+        mGyro.resetDisplacement();
+        mGyro.zeroYaw();
+        mGyro.setAngleAdjustment(0);
     }
     
     public double getAngle() {

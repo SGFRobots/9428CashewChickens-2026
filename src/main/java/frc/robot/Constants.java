@@ -60,6 +60,9 @@ public final class Constants {
         // Intake
         public static final int kUpDownID = 11;
         public static final int kSpinnyID = 10;
+
+        // Climber
+        public static final int kClimberID = 12;
     }
 
     // Reversed motors
@@ -135,6 +138,7 @@ public final class Constants {
         public static final double turretLimit = 70;
         public static final double intakeUpLimit = -6.643;
         public static final double intakeDownLimit = 6.643;
+        public static final double climberUppy = 10;
 
         // Module Positions on Robot
         public static final Translation2d[] kModulePositions = {
@@ -194,8 +198,9 @@ public final class Constants {
     public static final class Controllers {
         // Controller ports
         public static final int DrivingControllerPort = 0;
-        public static final int XBoxControllerPort = 1;
-        public static final int BackupDriveControllerPort = 2;
+        public static final int RoninControllerPort = 1;
+        public static final int XBoxControllerPort = 3;
+        public static final int BackupDriveControllerPort = 4;
 
         // New Controllers
         public static final class DrivingController {
@@ -216,6 +221,12 @@ public final class Constants {
             // Buttons
             public static final int LeftButton = 1;
             public static final int Dial = 2; // right = on ??? idk its weird
+        }
+        public static final class RoninController {
+            public static final int PowerDialPort = 4;
+            public static final int ShootyPort = 5;
+            public static final int reversyPort = 7;
+            public static final int ClimberPort = 6;
         }
 
         // Black drone controller

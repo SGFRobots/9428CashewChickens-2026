@@ -22,7 +22,7 @@ public class ShooterAuto extends Command {
 
     @Override 
     public void execute() {
-        mShooter.shoot(0.6);
+        mShooter.shoot(0.7);
     }
 
     @Override
