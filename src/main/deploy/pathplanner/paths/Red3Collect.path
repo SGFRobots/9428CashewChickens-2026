@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 12.30111111111111,
-        "y": 0.44731111111110977
+        "x": 12.5329,
+        "y": 7.582377777777777
       },
       "prevControl": null,
       "nextControl": {
-        "x": 11.726589383019489,
-        "y": 0.4473111111111097
+        "x": 10.204737021264286,
+        "y": 7.582377777777777
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Red3Hub"
     },
     {
       "anchor": {
-        "x": 8.743655555555556,
-        "y": 2.0496777777777764
+        "x": 8.753733333333333,
+        "y": 5.405577777777778
       },
       "prevControl": {
-        "x": 8.743655555555556,
-        "y": 0.4065054595822841
+        "x": 8.753733333333333,
+        "y": 7.512050307803529
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Red3Collect"
     }
   ],
   "rotationTargets": [],
@@ -38,17 +38,17 @@
     "maxAngularVelocity": 500.0,
     "maxAngularAcceleration": 200.0,
     "nominalVoltage": 11.0,
-    "unlimited": true
+    "unlimited": false
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 90.0
+    "rotation": -90.0
   },
   "reversed": false,
   "folder": "2026 Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 90.0
+    "rotation": -90.0
   },
   "useDefaultConstraints": true
 }

@@ -2,6 +2,7 @@ package frc.robot.commands.Auto;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.subsystems.Shooter;
 
 public class ShooterAuto extends Command {
@@ -23,6 +24,13 @@ public class ShooterAuto extends Command {
     @Override 
     public void execute() {
         mShooter.shoot(0.7);
+        if ((timer.get() >= 0.5) && (timer.get() < timeRunning - 0.5)) {
+            // mShooter.setServo(Constants.Mechanical.shooterGateDown);
+            mShooter.lowerGate();
+        } else {
+            // mShooter.setServo(Constants.Mechanical.shooterGateUp);
+            mShooter.raiseGate();
+        }
     }
 
     @Override

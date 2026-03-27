@@ -3,16 +3,24 @@ package frc.robot.subsystems;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Shooter extends SubsystemBase{
     // Motors
     private final SparkMax mMotor;
+    // private final Servo mServo;
+    private final SparkMax mGateMotor;
+    private double gateZero;
+    private double gateLimit;
+    private final double deadzone = 2;
 
     public Shooter() {
         mMotor = new SparkMax(Constants.MotorPorts.kKickerID, MotorType.kBrushless);
-
+        // mServo = new Servo(0);
+        mGateMotor = new SparkMax(Constants.MotorPorts.kGateID, MotorType.kBrushless);
+        zeroGate();
     }
 
     public void shoot(double power) {
@@ -21,6 +29,47 @@ public class Shooter extends SubsystemBase{
 
     public void stop() {
         mMotor.stopMotor();
+    }
+
+    // public void setServo(double angle) {
+    //     mServo.setAngle(angle);
+    // }
+
+    // public double getServoAngle() {
+    //     return mServo.get();
+    // }
+
+    public void setGatePower(double power) {
+        mGateMotor.set(power);
+    }
+
+    public void stopGate() {
+        mGateMotor.stopMotor();
+    }
+
+    public double getGatePos() {
+        return mGateMotor.getEncoder().getPosition();
+    }
+
+    public void zeroGate() {
+        gateZero = getGatePos();
+        gateLimit = gateZero - Constants.Mechanical.shooterGateDown;
+    }
+
+    public void lowerGate() {
+        if (getGatePos() > gateLimit + deadzone) {
+            setGatePower(-0.05);
+        } else {
+            stopGate();   
+        }
+    }
+
+    public void raiseGate() {
+        if (getGatePos() < gateZero - deadzone) {
+            setGatePower(0.05);
+        } else {
+            stopGate();
+        }
     }
 
 }

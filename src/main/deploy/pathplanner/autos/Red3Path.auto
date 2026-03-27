@@ -13,7 +13,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red3"
+            "pathName": "Red3Collect"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red3Return"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
           }
         }
       ]

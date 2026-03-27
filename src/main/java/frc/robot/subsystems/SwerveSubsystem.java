@@ -172,7 +172,7 @@ public class SwerveSubsystem extends SubsystemBase {
     public void resetYaw() {
         mGyro.resetDisplacement();
         mGyro.zeroYaw();
-        mGyro.setAngleAdjustment(0);
+        mGyro.setAngleAdjustment(-90);
     }
     
     public double getAngle() {

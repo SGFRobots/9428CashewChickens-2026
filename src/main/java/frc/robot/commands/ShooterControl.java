@@ -1,7 +1,9 @@
 package frc.robot.commands;
 
+import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Shooter;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -13,10 +15,12 @@ public class ShooterControl extends Command {
     private final GenericHID roninController;
     public final PIDController turretPID;
     public final PIDController resetPID;
+    private final Limelight mLimelight;
 
-    public ShooterControl(Shooter pShooter, GenericHID rController) {
+    public ShooterControl(Shooter pShooter, GenericHID rController, Limelight pLimelight) {
         mShooter = pShooter;
         roninController = rController; 
+        mLimelight = pLimelight;
 
         turretPID = new PIDController(0.2, 0, 0);
         resetPID = new PIDController(0.02, 0, 0);
@@ -32,25 +36,37 @@ public class ShooterControl extends Command {
         if (DriverStation.isTeleop()){
             double revButtonPressed = roninController.getRawAxis(Constants.Controllers.RoninController.reversyPort);
             boolean shooting = false;
-
             double roninPower = (roninController.getRawAxis(Constants.Controllers.RoninController.PowerDialPort) + 1) /2;
             roninPower = (roninPower>=0.7) ? 0.7 : roninPower;
-            SmartDashboard.putNumber("SHOOTER POWER",roninPower);
+            
+            // Pose3d LLdata = mLimelight.getLL3d("limelight-front");
+            // double dist = LLdata.getZ();
+            // double power = dist / 182.11 * 0.7;
+            
+            SmartDashboard.putNumber("SHOOTER POWER", roninPower);
             
             if (revButtonPressed == 1) {
                 mShooter.shoot(-0.7);
             } else {
+                mShooter.shoot(roninPower);
+
                 double buttonPressed = roninController.getRawAxis(Constants.Controllers.RoninController.ShootyPort);
                 if (buttonPressed == 1) {
-                    mShooter.shoot(roninPower); 
+                    // mShooter.shoot(roninPower); 
+                    // mShooter.setServo(Constants.Mechanical.shooterGateDown);
+                    mShooter.lowerGate();
                     shooting = true; 
                 } else {
                     // mShooter.shoot(0.1);
-                    mShooter.stop();
+                    // mShooter.stop();
+                    // mShooter.setServo(Constants.Mechanical.shooterGateUp);
+                    mShooter.raiseGate();
                     shooting = false;
                 }
             }
             SmartDashboard.putBoolean("Shooting", shooting);
+            // SmartDashboard.putNumber("servoangle", mShooter.getServoAngle());
+            SmartDashboard.putNumber("GatePos", mShooter.getGatePos());
 
                 // They call me doctor worm.
                 // Good morning how are you?

@@ -28,7 +28,7 @@ public class IntakeCommand extends Command{
         if (DriverStation.isTeleop()){
             double leftButtonPressed = mController.getRawAxis(Constants.Controllers.DrivingController.LeftHoldBtn);
             if(leftButtonPressed==1){
-                mIntake.setPowerSpinny(0.4);
+                mIntake.setPowerSpinny(0.3);
             }
             else {
                 mIntake.stopSpinny();

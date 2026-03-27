@@ -55,14 +55,15 @@ public final class Constants {
         public static final int kLeftShooterID = 9; // deprecated
         public static final int kRightShooterID = 10; // deprecated
         public static final int kKickerID = 5;
-        public static final int kTurretID = 6;
+        public static final int kTurretID = 6; // deprecated
+        public static final int kGateID = 12;
 
         // Intake
         public static final int kUpDownID = 11;
         public static final int kSpinnyID = 10;
 
         // Climber
-        public static final int kClimberID = 12;
+        public static final int kClimberID = 12; // deprecated
     }
 
     // Reversed motors
@@ -129,16 +130,18 @@ public final class Constants {
         public static final double kRobotLengthMeters = 0.6858; //changed to 25.5 inches. was at 26.5 inches.
 
         // CANCoders' offsets ROBOT 1
-        public static final double kFLDriveAbsoluteEncoderOffset1 = 0.4689;  // 1 --> 3
-        public static final double kBLDriveAbsoluteEncoderOffset1 = -0.1445; // 4 --> 2
-        public static final double kFRDriveAbsoluteEncoderOffset1 = 0.3289; // 2 --> 4
-        public static final double kBRDriveAbsoluteEncoderOffset1 = -0.0298; // 0.4763; // 3 --> 1
+        public static final double kFLDriveAbsoluteEncoderOffset1 = 0.4766;  // 1 --> 3
+        public static final double kBLDriveAbsoluteEncoderOffset1 = 0.4841; // 4 --> 2
+        public static final double kFRDriveAbsoluteEncoderOffset1 = 0.2498; // 2 --> 4
+        public static final double kBRDriveAbsoluteEncoderOffset1 = 0.3762; // 0.4763; // 3 --> 1
 
         // Motor Limits
         public static final double turretLimit = 70;
         public static final double intakeUpLimit = -6.643;
         public static final double intakeDownLimit = 6.643;
         public static final double climberUppy = 10;
+        public static final double shooterGateUp = 50; // -1.2
+        public static final double shooterGateDown = 27.6; // 0.4
 
         // Module Positions on Robot
         public static final Translation2d[] kModulePositions = {

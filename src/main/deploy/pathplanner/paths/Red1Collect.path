@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.269122222222222,
+        "x": 12.30111111111111,
         "y": 0.44731111111110977
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.692868511327936,
-        "y": 0.44731111111110977
+        "x": 9.116517387522341,
+        "y": 0.44731111111111016
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Red1Hub"
     },
     {
       "anchor": {
-        "x": 7.7258,
-        "y": 2.0799111111111106
+        "x": 8.753733333333333,
+        "y": 2.654344444444445
       },
       "prevControl": {
-        "x": 7.7258,
-        "y": 0.7190752266472837
+        "x": 8.753733333333333,
+        "y": 0.6689966442708022
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Red1Collect"
     }
   ],
   "rotationTargets": [],
@@ -38,7 +38,7 @@
     "maxAngularVelocity": 500.0,
     "maxAngularAcceleration": 200.0,
     "nominalVoltage": 11.0,
-    "unlimited": true
+    "unlimited": false
   },
   "goalEndState": {
     "velocity": 0,

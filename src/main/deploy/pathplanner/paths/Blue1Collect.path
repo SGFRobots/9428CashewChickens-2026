@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.259044444444445,
-        "y": 7.62268888888889
+        "x": 4.248966666666666,
+        "y": 7.5723
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.712544444444445,
-        "y": 7.632766666666668
+        "x": 6.294780377517723,
+        "y": 7.5723
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Blue1Hub"
     },
     {
       "anchor": {
-        "x": 7.826577777777777,
-        "y": 5.9699333333333335
+        "x": 7.846733333333335,
+        "y": 5.627288888888888
       },
       "prevControl": {
-        "x": 7.826577777777777,
-        "y": 7.743650852041665
+        "x": 7.846733333333335,
+        "y": 7.40100640759722
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Blue1Collect"
     }
   ],
   "rotationTargets": [],

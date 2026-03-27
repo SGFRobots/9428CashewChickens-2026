@@ -13,7 +13,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Blue3"
+            "pathName": "Blue3Collect"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blue3Return"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
           }
         }
       ]

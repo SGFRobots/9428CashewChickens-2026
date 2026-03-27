@@ -20,8 +20,8 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 // Subsystems
 import frc.robot.subsystems.SwerveSubsystem;
-import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Shooter;
 
 // Commands
@@ -32,7 +32,6 @@ import frc.robot.commands.Driving.SwerveJoystick;
 import frc.robot.commands.ShooterControl;
 import frc.robot.commands.Auto.IntakeAuto;
 import frc.robot.commands.Auto.ShooterAuto;
-import frc.robot.commands.ClimberControl;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.OpenIntakeCommand;
 
@@ -50,7 +49,7 @@ public class RobotContainer {
   private final SpeedControl mSpeedControl;
   private final Shooter mShooter;
   private final Intake mIntake;
-  private final Climber mClimber;
+  private final Limelight mLimelight;
 
   // Commands
   private final ResetRotations mResetRotations;
@@ -66,18 +65,17 @@ public class RobotContainer {
     mResetRotations = new ResetRotations(mSwerveSubsystem);
     mSpeedControl = new SpeedControl(mSwerveSubsystem, mDroneComtroller);
 
+    // Limelight
+    mLimelight = new Limelight();
+
     // Shooter
     mShooter = new Shooter();
-    mShooter.setDefaultCommand(new ShooterControl(mShooter, mRoninController));
+    mShooter.setDefaultCommand(new ShooterControl(mShooter, mRoninController, mLimelight));
     
     // Intake
     mIntake = new Intake();
     mIntake.setDefaultCommand(new IntakeCommand(mIntake, mDroneComtroller));
     mOpenIntake = new OpenIntakeCommand(mIntake);
-
-    // Climber
-    mClimber = new Climber();
-    mClimber.setDefaultCommand(new ClimberControl(mClimber, mRoninController));
     
     // Auto Commands
     mIntakeAuto = new IntakeAuto(mIntake);

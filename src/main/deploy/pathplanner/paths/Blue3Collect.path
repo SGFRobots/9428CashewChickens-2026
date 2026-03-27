@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 4.269122222222222,
+        "y": 0.44731111111110977
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 7.171679683228714,
+        "y": 0.44731111111110977
+      },
+      "isLocked": false,
+      "linkedName": "Blue3Hub"
+    },
+    {
+      "anchor": {
+        "x": 7.786266666666666,
+        "y": 2.7047333333333334
+      },
+      "prevControl": {
+        "x": 7.786266666666666,
+        "y": 0.6085555555555562
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Blue3Collect"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 4.7,
+    "maxAcceleration": 2.0,
+    "maxAngularVelocity": 500.0,
+    "maxAngularAcceleration": 200.0,
+    "nominalVoltage": 11.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 90.0
+  },
+  "reversed": false,
+  "folder": "2026 Paths",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 90.0
+  },
+  "useDefaultConstraints": true
+}
