@@ -224,12 +224,12 @@ public class SwerveSubsystem extends SubsystemBase {
         mField2d.setRobotPose(poseEstimator.getEstimatedPosition());
 
         // Logs in Swerve Tab
-        // double loggingState[] = {
-        //         modules[0].getState().angle.getDegrees(), modules[0].getState().speedMetersPerSecond,
-        //         modules[1].getState().angle.getDegrees(), modules[1].getState().speedMetersPerSecond,
-        //         modules[2].getState().angle.getDegrees(), modules[2].getState().speedMetersPerSecond,
-        //         modules[3].getState().angle.getDegrees(), modules[3].getState().speedMetersPerSecond
-        // };
+        double loggingState[] = {
+                modules[0].getState().angle.getDegrees(), Math.abs(modules[0].getState().speedMetersPerSecond),
+                modules[1].getState().angle.getDegrees(), Math.abs(modules[1].getState().speedMetersPerSecond),
+                modules[2].getState().angle.getDegrees(), Math.abs(modules[2].getState().speedMetersPerSecond),
+                modules[3].getState().angle.getDegrees(), Math.abs(modules[3].getState().speedMetersPerSecond)
+        };
 
         // Debug telemetry
         SmartDashboard.putNumber("Robot Heading", getHeading());
@@ -239,7 +239,7 @@ public class SwerveSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("turningSpeed", getRobotRelativeSpeeds().omegaRadiansPerSecond);
         // SmartDashboard.putString("Gyro", getGyroRotation2d().toString());
         SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
-        // SmartDashboard.putNumberArray("SwerveModuleLOGGINGStates", loggingState);
+        SmartDashboard.putNumberArray("SwerveModuleLOGGINGStates", loggingState);
         SmartDashboard.putNumber("rotation2d", getRotation2d().getDegrees());
         SmartDashboard.putData("Field", mField2d);
         SmartDashboard.putNumber("raw gyro z", mGyro.getRawGyroZ());

@@ -48,19 +48,19 @@ public class ShooterControl extends Command {
             if (revButtonPressed == 1) {
                 mShooter.shoot(-0.7);
             } else {
-                mShooter.shoot(roninPower);
+                // mShooter.shoot(roninPower);
 
                 double buttonPressed = roninController.getRawAxis(Constants.Controllers.RoninController.ShootyPort);
                 if (buttonPressed == 1) {
-                    // mShooter.shoot(roninPower); 
+                    mShooter.shoot(roninPower); 
                     // mShooter.setServo(Constants.Mechanical.shooterGateDown);
-                    mShooter.lowerGate();
+                    // mShooter.lowerGate();
                     shooting = true; 
                 } else {
                     // mShooter.shoot(0.1);
-                    // mShooter.stop();
+                    mShooter.stop();
                     // mShooter.setServo(Constants.Mechanical.shooterGateUp);
-                    mShooter.raiseGate();
+                    // mShooter.raiseGate();
                     shooting = false;
                 }
             }

@@ -9,7 +9,8 @@ import frc.robot.Constants;
 
 public class Shooter extends SubsystemBase{
     // Motors
-    private final SparkMax mMotor;
+    private final SparkMax mMotorLeft;
+    private final SparkMax mMotorRight;
     // private final Servo mServo;
     private final SparkMax mGateMotor;
     private double gateZero;
@@ -17,27 +18,22 @@ public class Shooter extends SubsystemBase{
     private final double deadzone = 2;
 
     public Shooter() {
-        mMotor = new SparkMax(Constants.MotorPorts.kKickerID, MotorType.kBrushless);
+        mMotorLeft = new SparkMax(Constants.MotorPorts.kLeftShooterID, MotorType.kBrushless);
+        mMotorRight = new SparkMax(Constants.MotorPorts.kRightShooterID, MotorType.kBrushless);
         // mServo = new Servo(0);
         mGateMotor = new SparkMax(Constants.MotorPorts.kGateID, MotorType.kBrushless);
         zeroGate();
     }
 
     public void shoot(double power) {
-        mMotor.set(power);
+        mMotorLeft.set(power);
+        mMotorRight.set(power);
     }
 
     public void stop() {
-        mMotor.stopMotor();
+        mMotorLeft.stopMotor();
+        mMotorRight.stopMotor();
     }
-
-    // public void setServo(double angle) {
-    //     mServo.setAngle(angle);
-    // }
-
-    // public double getServoAngle() {
-    //     return mServo.get();
-    // }
 
     public void setGatePower(double power) {
         mGateMotor.set(power);

@@ -34,6 +34,7 @@ import frc.robot.commands.Auto.IntakeAuto;
 import frc.robot.commands.Auto.ShooterAuto;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.OpenIntakeCommand;
+import frc.robot.commands.CloseIntakeCommand;
 
 public class RobotContainer {
 
@@ -54,6 +55,7 @@ public class RobotContainer {
   // Commands
   private final ResetRotations mResetRotations;
   public final OpenIntakeCommand mOpenIntake;
+  public final CloseIntakeCommand mCloseIntakeCommand;
   public final IntakeAuto mIntakeAuto;
   private final ShooterAuto mShooterAuto;
 
@@ -74,8 +76,9 @@ public class RobotContainer {
     
     // Intake
     mIntake = new Intake();
-    mIntake.setDefaultCommand(new IntakeCommand(mIntake, mDroneComtroller));
     mOpenIntake = new OpenIntakeCommand(mIntake);
+    mCloseIntakeCommand = new CloseIntakeCommand(mIntake);
+    mIntake.setDefaultCommand(new IntakeCommand(mIntake, mDroneComtroller, mOpenIntake, mCloseIntakeCommand));
     
     // Auto Commands
     mIntakeAuto = new IntakeAuto(mIntake);
@@ -93,7 +96,8 @@ public class RobotContainer {
   // Assign buttons to commands
   private void configureButtonBindings() {
     // new JoystickButton(mDroneComtroller, Constants.Controllers.DrivingController.LeftButton).onTrue(mShooter.getDefaultCommand());
-    new JoystickButton(mDroneComtroller, Constants.Controllers.DrivingController.LeftButton).onTrue(new InstantCommand(() -> mSwerveSubsystem.resetYaw(), mSwerveSubsystem));
+    // new JoystickButton(mDroneComtroller, Constants.Controllers.DrivingController.LeftButton).onTrue(new InstantCommand(() -> mSwerveSubsystem.resetYaw(), mSwerveSubsystem));
+    new JoystickButton(mDroneComtroller, Constants.Controllers.DrivingController.LeftButton).onTrue(mCloseIntakeCommand);
   }
 
   // Set up auto commands

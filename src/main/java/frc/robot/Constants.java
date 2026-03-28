@@ -35,7 +35,7 @@ public final class Constants {
         public static final int kFRTurningMotorID = 4;
         public static final int kBRTurningMotorID = 1;
 
-        // CAN IDs of CANCoders
+        // Pheonix IDs of CANCoders
         public static final int kFLDriveAbsoluteEncoderID = 7;
         public static final int kBLDriveAbsoluteEncoderID = 6;
         public static final int kFRDriveAbsoluteEncoderID = 8;
@@ -52,10 +52,8 @@ public final class Constants {
         public static final String kRightLimelightKey = "limelight-right";
 
         // Shooter
-        public static final int kLeftShooterID = 9; // deprecated
-        public static final int kRightShooterID = 10; // deprecated
-        public static final int kKickerID = 5;
-        public static final int kTurretID = 6; // deprecated
+        public static final int kLeftShooterID = 5;
+        public static final int kRightShooterID = 6; 
         public static final int kGateID = 12;
 
         // Intake
@@ -75,10 +73,10 @@ public final class Constants {
         public static final boolean kBRTurningReversed = true;
     
         // Driving motors
-        public static final boolean kFLDriveReversed = true;
-        public static final boolean kBLDriveReversed = true;
-        public static final boolean kFRDriveReversed = true;
-        public static final boolean kBRDriveReversed = true;
+        public static final boolean kFLDriveReversed = false;
+        public static final boolean kBLDriveReversed = false;
+        public static final boolean kFRDriveReversed = false;
+        public static final boolean kBRDriveReversed = false;
 
         // Turning encoders
         public static final boolean kFLTurningEncoderReversed = true;
@@ -105,8 +103,8 @@ public final class Constants {
         // Robot's physical measurements
         public static final double kWheelRadiusMeters = 0.0508;
         public static final double kWheelDiameterMeters = kWheelRadiusMeters * 2;
-        public static final double kDriveMotorGearRatio = 6.12;
-        public static final double kTurningMotorGearRatio = 150/7;
+        public static final double kDriveMotorGearRatio = 8.14;
+        public static final double kTurningMotorGearRatio = 150/7.0;
         public static final double kDriveEncoderRot2Meter = kDriveMotorGearRatio * Math.PI * kWheelDiameterMeters;
         public static final double kTurningEncoderRot2Rad = kTurningMotorGearRatio * 2 * Math.PI;
         public static final double kDriveEncoderRPM2MeterPerSec = kDriveEncoderRot2Meter / 60;
@@ -130,10 +128,10 @@ public final class Constants {
         public static final double kRobotLengthMeters = 0.6858; //changed to 25.5 inches. was at 26.5 inches.
 
         // CANCoders' offsets ROBOT 1
-        public static final double kFLDriveAbsoluteEncoderOffset1 = 0.4766;  // 1 --> 3
-        public static final double kBLDriveAbsoluteEncoderOffset1 = 0.4841; // 4 --> 2
-        public static final double kFRDriveAbsoluteEncoderOffset1 = 0.2498; // 2 --> 4
-        public static final double kBRDriveAbsoluteEncoderOffset1 = 0.3762; // 0.4763; // 3 --> 1
+        public static final double kFLDriveAbsoluteEncoderOffset1 = -0.0332;  // 1 --> 3
+        public static final double kBLDriveAbsoluteEncoderOffset1 = -0.1621; // 4 --> 2
+        public static final double kFRDriveAbsoluteEncoderOffset1 = 0.1779; // 2 --> 4
+        public static final double kBRDriveAbsoluteEncoderOffset1 = 0.3438; // 0.4763; // 3 --> 1
 
         // Motor Limits
         public static final double turretLimit = 70;

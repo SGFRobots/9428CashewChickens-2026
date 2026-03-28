@@ -104,11 +104,11 @@ public class Module {
     }
 
     public double krakenToMeters(double rot) {
-        return rot / 6.12 * Constants.Mechanical.kWheelCircumferenceMeters;
+        return rot / Constants.Mechanical.kDriveMotorGearRatio * Constants.Mechanical.kWheelCircumferenceMeters;
     }
 
     public double krakenToMPS(double krakenRPS) {
-        double wheelrps = krakenRPS / 6.12;
+        double wheelrps = krakenRPS / Constants.Mechanical.kDriveMotorGearRatio;
         double wheelMPS = wheelrps * Constants.Mechanical.kWheelDiameterMeters;
         return wheelMPS;
     }
@@ -153,8 +153,8 @@ public class Module {
     }
 
     public void speedChange() {
-        driveOutput *= fast ? 2 : 1;
-        driveOutput *= slow ? 0.3 : 1;
+        driveOutput *=  1.5;
+        // driveOutput *= slow ? 0.3 : 1;
     } 
     
     // Read current module angle in Radians
