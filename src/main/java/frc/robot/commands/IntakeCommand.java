@@ -15,6 +15,8 @@ public class IntakeCommand extends Command{
     private final OpenIntakeCommand mOpenIntake;
     private final CloseIntakeCommand mCloseIntake;
     private boolean IntakeDown;
+    private final double deadzone = 0.5;
+    private boolean upping;
 
     public IntakeCommand(Intake pIntake, GenericHID pController, OpenIntakeCommand pOpenIntake, CloseIntakeCommand pCloseIntake){
         mIntake = pIntake;
@@ -22,6 +24,7 @@ public class IntakeCommand extends Command{
         mOpenIntake = pOpenIntake;
         mCloseIntake = pCloseIntake;
         IntakeDown = true;
+        upping = false;
 
         addRequirements(mIntake);
     }
@@ -40,17 +43,51 @@ public class IntakeCommand extends Command{
                 mIntake.stopSpinny();
             }
 
-            double rightButtonPressed = mController.getRawAxis(Constants.Controllers.DrivingController.RightHoldBtn);
-            if((rightButtonPressed==1) && (!IntakeDown)){
-                CommandScheduler.getInstance().schedule(mOpenIntake);
-                IntakeDown = true;
-            }
-            else {
-                if (IntakeDown) {
-                    CommandScheduler.getInstance().schedule(mCloseIntake);
-                    IntakeDown = false;
-                }
-            }
+            // double rightButtonPressed = mController.getRawAxis(Constants.Controllers.DrivingController.RightHoldBtn);
+            // if((rightButtonPressed==1) && (!IntakeDown)){
+            //     CommandScheduler.getInstance().schedule(mOpenIntake);
+            //     IntakeDown = true;
+            // }
+            // else {
+            //     if (IntakeDown) {
+            //         CommandScheduler.getInstance().schedule(mCloseIntake);
+            //         IntakeDown = false;
+            //     }
+            // }
+
+            // double intakeSwitch = mController.getRawAxis(Constants.Controllers.DrivingController.LeftSwitch);
+            // if (intakeSwitch == -1) {
+            //     // go down
+            //     if (mIntake.getPos() < mIntake.getDownPos() - deadzone) {
+            //         double dist = Math.abs(mIntake.getDownPos() - mIntake.getPos());
+            //         mIntake.setPowerUppyDowney(dist/6.64 * 0.4);
+            //     }
+            // } else if (intakeSwitch == 0) {
+            //     if (upping) {
+            //         double dist = Math.abs(mIntake.getMidPos() - mIntake.getPos());
+            //         mIntake.setPowerUppyDowney(-dist/6.64 * 0.4);
+            //         if (mIntake.getPos() <= mIntake.getMidPos() - deadzone) {
+            //             upping = false;
+            //         }
+            //     } else {
+            //         if (mIntake.getPos() < mIntake.getDownPos() - deadzone) {
+            //             double dist = Math.abs(mIntake.getDownPos() - mIntake.getPos());
+            //             mIntake.setPowerUppyDowney(dist/6.64 * 0.4);
+            //         } else {
+            //             upping = true;
+            //         }
+
+            //     }
+            // } else if (intakeSwitch == 1) {
+            //     // go up
+            //     if (mIntake.getPos() < mIntake.getZeroPos() - deadzone) {
+            //         double dist = Math.abs(mIntake.getZeroPos() - mIntake.getPos());
+            //         mIntake.setPowerUppyDowney(dist/6.64 * 0.4);
+            //     } else if (mIntake.getPos() > mIntake.getZeroPos() + deadzone) {
+            //         double dist = Math.abs(mIntake.getDownPos() - mIntake.getPos());
+            //         mIntake.setPowerUppyDowney(-dist/6.64 * 0.4);
+            //     }
+            // }
 
             // double rightY = mController.getRawAxis(Constants.Controllers.DrivingController.RightYPort);
             // if (mIntake.checkPos()) {

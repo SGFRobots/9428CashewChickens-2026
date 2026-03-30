@@ -81,8 +81,8 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().schedule(m_speedControl);
 
     m_robotContainer.mSwerveSubsystem.setLLThrottle(0);
-    CommandScheduler.getInstance().schedule(m_robotContainer.mIntakeAuto);
-    CommandScheduler.getInstance().schedule(m_robotContainer.mOpenIntake);
+    // CommandScheduler.getInstance().schedule(m_robotContainer.mIntakeAuto);
+    // CommandScheduler.getInstance().schedule(m_robotContainer.mOpenIntake);
 
     
     // m_robotContainer.resetRotations();

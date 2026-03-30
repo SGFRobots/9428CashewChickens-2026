@@ -13,6 +13,7 @@ public class Intake extends SubsystemBase{
     private final SparkMax spinnyMotor;
     private double uppyZero;
     private double uppyDown;
+    private double uppyMid;
 
     public Intake(){
         uppyDownyMotor = new SparkMax(Constants.MotorPorts.kUpDownID, MotorType.kBrushless);
@@ -54,6 +55,9 @@ public class Intake extends SubsystemBase{
         return uppyDown;
     }
 
+    public double getMidPos() {
+        return uppyMid;
+    }
 
     public double getRelativePos() {
         return uppyZero + getPos();
@@ -61,6 +65,7 @@ public class Intake extends SubsystemBase{
 
     public void zeroPos() {
         uppyZero = getPos();
+        uppyMid = uppyZero + Constants.Mechanical.intakeMidLimit;
         uppyDown = uppyZero + Constants.Mechanical.intakeDownLimit;
     }
 
