@@ -72,13 +72,13 @@ public class RobotContainer {
 
     // Shooter
     mShooter = new Shooter();
-    // mShooter.setDefaultCommand(new ShooterControl(mShooter, mRoninController, mLimelight));
+    mShooter.setDefaultCommand(new ShooterControl(mShooter, mRoninController, mLimelight));
     
     // Intake
     mIntake = new Intake();
     mOpenIntake = new OpenIntakeCommand(mIntake);
     mCloseIntakeCommand = new CloseIntakeCommand(mIntake);
-    // mIntake.setDefaultCommand(new IntakeCommand(mIntake, mDroneComtroller, mOpenIntake, mCloseIntakeCommand));
+    mIntake.setDefaultCommand(new IntakeCommand(mIntake, mDroneComtroller, mOpenIntake, mCloseIntakeCommand));
     
     // Auto Commands
     mIntakeAuto = new IntakeAuto(mIntake);

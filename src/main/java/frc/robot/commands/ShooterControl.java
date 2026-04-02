@@ -46,13 +46,13 @@ public class ShooterControl extends Command {
             SmartDashboard.putNumber("SHOOTER POWER", roninPower);
             
             if (revButtonPressed == 1) {
-                mShooter.shoot(-0.7);
+                mShooter.shoot(0.7);
             } else {
-                // mShooter.shoot(roninPower);
+                 // mShooter.shoot(roninPower);
 
                 double buttonPressed = roninController.getRawAxis(Constants.Controllers.RoninController.ShootyPort);
                 if (buttonPressed == 1) {
-                    mShooter.shoot(roninPower); 
+                    mShooter.shoot(-roninPower); 
                     // mShooter.setServo(Constants.Mechanical.shooterGateDown);
                     // mShooter.lowerGate();
                     shooting = true; 

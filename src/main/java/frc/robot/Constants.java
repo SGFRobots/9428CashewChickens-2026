@@ -73,10 +73,10 @@ public final class Constants {
         public static final boolean kBRTurningReversed = true;
     
         // Driving motors
-        public static final boolean kFLDriveReversed = false;
-        public static final boolean kBLDriveReversed = false;
-        public static final boolean kFRDriveReversed = false;
-        public static final boolean kBRDriveReversed = false;
+        public static final boolean kFLDriveReversed = true;
+        public static final boolean kBLDriveReversed = true;
+        public static final boolean kFRDriveReversed = true;
+        public static final boolean kBRDriveReversed = true;
 
         // Turning encoders
         public static final boolean kFLTurningEncoderReversed = true;
@@ -128,10 +128,10 @@ public final class Constants {
         public static final double kRobotLengthMeters = 0.6858; //changed to 25.5 inches. was at 26.5 inches.
 
         // CANCoders' offsets ROBOT 1
-        public static final double kFLDriveAbsoluteEncoderOffset1 = -0.0332;  // 1 --> 3
-        public static final double kBLDriveAbsoluteEncoderOffset1 = -0.1621; // 4 --> 2
-        public static final double kFRDriveAbsoluteEncoderOffset1 = 0.1779; // 2 --> 4
-        public static final double kBRDriveAbsoluteEncoderOffset1 = 0.3438; // 0.4763; // 3 --> 1
+        public static final double kFLDriveAbsoluteEncoderOffset1 = 0.0952;//-0.0332;  // 1 --> 3
+        public static final double kBLDriveAbsoluteEncoderOffset1 = 0.0472;//-0.1621; // 4 --> 2
+        public static final double kFRDriveAbsoluteEncoderOffset1 = -0.4766;//0.1779; // 2 --> 4
+        public static final double kBRDriveAbsoluteEncoderOffset1 = 0.2048;//0.3438; // 0.4763; // 3 --> 1
 
         // Motor Limits
         public static final double turretLimit = 70;
