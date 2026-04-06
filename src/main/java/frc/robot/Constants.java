@@ -58,6 +58,7 @@ public final class Constants {
 
         // Intake
         public static final int kUpDownID = 11;
+        public static final int kUpDownTwoID = 13;
         public static final int kSpinnyID = 10;
 
         // Climber
@@ -136,8 +137,7 @@ public final class Constants {
         // Motor Limits
         public static final double turretLimit = 70;
         public static final double intakeUpLimit = 0;
-        public static final double intakeMidLimit = 1.5;
-        public static final double intakeDownLimit = 6.643;
+        public static final double intakeDownLimit = 5;
         public static final double climberUppy = 10;
         public static final double shooterGateUp = 50; // -1.2
         public static final double shooterGateDown = 27.6; // 0.4

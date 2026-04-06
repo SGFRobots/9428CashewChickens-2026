@@ -1,7 +1,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.Intake;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -12,17 +11,13 @@ import frc.robot.Constants;
 public class IntakeCommand extends Command{
     private final Intake mIntake;
     private final GenericHID mController;
-    private final OpenIntakeCommand mOpenIntake;
-    private final CloseIntakeCommand mCloseIntake;
     private boolean IntakeDown;
     private final double deadzone = 0.5;
     private boolean upping;
 
-    public IntakeCommand(Intake pIntake, GenericHID pController, OpenIntakeCommand pOpenIntake, CloseIntakeCommand pCloseIntake){
+    public IntakeCommand(Intake pIntake, GenericHID pController, OpenIntakeCommand pOpenIntake){
         mIntake = pIntake;
         mController = pController;
-        mOpenIntake = pOpenIntake;
-        mCloseIntake = pCloseIntake;
         IntakeDown = true;
         upping = false;
 
@@ -38,8 +33,10 @@ public class IntakeCommand extends Command{
             double leftButtonPressed = mController.getRawAxis(Constants.Controllers.DrivingController.LeftHoldBtn);
             if(leftButtonPressed==1){
                 mIntake.setPowerSpinny(0.3);
+                // mIntake.setPowerUppyDowney(0.5);
             }
             else {
+                // mIntake.stopUppyDowney();
                 mIntake.stopSpinny();
             }
 
@@ -98,11 +95,7 @@ public class IntakeCommand extends Command{
             // }
         }
 
-        SmartDashboard.putNumber("Intake0", mIntake.getZeroPos());
-        SmartDashboard.putNumber("IntakeLimit", mIntake.getDownPos());
-        SmartDashboard.putNumber("IntakePos", mIntake.getPos());
-
-        
+        SmartDashboard.putNumber("IntakePos", mIntake.getPos());        
     }
 
     @Override

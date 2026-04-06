@@ -37,7 +37,7 @@ public class ShooterControl extends Command {
             double revButtonPressed = roninController.getRawAxis(Constants.Controllers.RoninController.reversyPort);
             boolean shooting = false;
             double roninPower = (roninController.getRawAxis(Constants.Controllers.RoninController.PowerDialPort) + 1) /2;
-            roninPower = (roninPower>=0.7) ? 0.7 : roninPower;
+            // roninPower = (roninPo7) : roninPower;
             
             // Pose3d LLdata = mLimelight.getLL3d("limelight-front");
             // double dist = LLdata.getZ();

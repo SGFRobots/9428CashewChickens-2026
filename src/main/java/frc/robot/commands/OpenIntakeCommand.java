@@ -5,17 +5,27 @@ import frc.robot.subsystems.Intake;
 
 public class OpenIntakeCommand extends Command{
     private final Intake mIntake;
+    private double direction;
+    private final double deadzone;
 
     public OpenIntakeCommand(Intake pIntake) {
         mIntake = pIntake;
+        deadzone = 0.5;
     }
 
     @Override
-    public void initialize() {}
+    public void initialize() {
+        if (mIntake.getPos() > (mIntake.getMidPoint())) {
+            // currently down, needs to go up
+            direction = -1;
+        } else {
+            direction = 1;
+        }
+    }
 
     @Override 
     public void execute() {
-        mIntake.setPowerUppyDowney(0.4);
+        mIntake.setPowerUppyDowney(0.2 * direction);
     }
 
     @Override
@@ -25,6 +35,11 @@ public class OpenIntakeCommand extends Command{
 
     @Override
     public boolean isFinished() {
-        return mIntake.getPos() >= mIntake.getDownPos();
+        // return mIntake.getPos() >= mIntake.getDownPos();
+        if (direction == 1) {
+            return mIntake.getPos() >= mIntake.getDownPos() - deadzone;
+        } else {
+            return mIntake.getPos() <= mIntake.getUpPos() + deadzone;
+        }
     }    
 }

@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -11,12 +12,13 @@ import frc.robot.Constants;
 public class Intake extends SubsystemBase{
     private final SparkMax uppyDownyMotor;
     private final SparkMax spinnyMotor;
-    private double uppyZero;
+    private final SparkMax uppyDownyLeftMotor;
+    private double uppyUp;
     private double uppyDown;
-    private double uppyMid;
 
     public Intake(){
         uppyDownyMotor = new SparkMax(Constants.MotorPorts.kUpDownID, MotorType.kBrushless);
+        uppyDownyLeftMotor = new SparkMax(Constants.MotorPorts.kUpDownTwoID, MotorType.kBrushless);
         spinnyMotor = new SparkMax(Constants.MotorPorts.kSpinnyID, MotorType.kBrushless);
 
         zeroPos();
@@ -28,10 +30,12 @@ public class Intake extends SubsystemBase{
 
     public void setPowerUppyDowney(double power){
         uppyDownyMotor.set(power);
+        uppyDownyLeftMotor.set(power);
     }
 
     public void stopUppyDowney(){
         uppyDownyMotor.stopMotor();
+        uppyDownyLeftMotor.stopMotor();
     }
 
     public void stopSpinny(){
@@ -47,30 +51,20 @@ public class Intake extends SubsystemBase{
         return uppyDownyMotor.getEncoder().getPosition();
     }
 
-    public double getZeroPos() {
-        return uppyZero;
-    }
-
     public double getDownPos() {
         return uppyDown;
     }
 
-    public double getMidPos() {
-        return uppyMid;
+    public double getUpPos() {
+        return uppyUp;
     }
 
-    public double getRelativePos() {
-        return uppyZero + getPos();
+    public double getMidPoint() {
+        return (uppyDown + uppyUp) / 2.0;
     }
 
     public void zeroPos() {
-        uppyZero = getPos();
-        uppyMid = uppyZero + Constants.Mechanical.intakeMidLimit;
-        uppyDown = uppyZero + Constants.Mechanical.intakeDownLimit;
+        uppyUp = getPos();
+        uppyDown = uppyUp + Constants.Mechanical.intakeDownLimit;
     }
-
-    public boolean checkPos() {
-        return (getPos() > uppyZero) && (getPos() < uppyDown);
-    }
-
 }

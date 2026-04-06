@@ -25,6 +25,7 @@ public class CloseIntakeCommand extends Command{
 
     @Override
     public boolean isFinished() {
-        return mIntake.getPos() <= mIntake.getZeroPos();
+        // return mIntake.getPos() <= mIntake.getZeroPos();
+        return true;
     }    
 }
