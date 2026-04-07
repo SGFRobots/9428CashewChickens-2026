@@ -15,11 +15,16 @@ public class OpenIntakeCommand extends Command{
 
     @Override
     public void initialize() {
-        if (mIntake.getPos() > (mIntake.getMidPoint())) {
-            // currently down, needs to go up
-            direction = -1;
-        } else {
+        // if (mIntake.getPos() > (mIntake.getMidPoint())) {
+        //     // currently down, needs to go up
+        //     direction = -1;
+        // } else {
+        //     direction = 1;
+        // }
+        if (mIntake.getPosHalf() == 1) {
             direction = 1;
+        } else {
+            direction = 0;
         }
     }
 
@@ -39,7 +44,7 @@ public class OpenIntakeCommand extends Command{
         if (direction == 1) {
             return mIntake.getPos() >= mIntake.getDownPos() - deadzone;
         } else {
-            return mIntake.getPos() <= mIntake.getUpPos() + deadzone;
+            return true;
         }
     }    
 }

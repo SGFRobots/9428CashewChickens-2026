@@ -30,66 +30,21 @@ public class IntakeCommand extends Command{
     @Override 
     public void execute() {
         if (DriverStation.isTeleop()){
+            // Set Power spinny
             double leftButtonPressed = mController.getRawAxis(Constants.Controllers.DrivingController.LeftHoldBtn);
-            if(leftButtonPressed==1){
-                mIntake.setPowerSpinny(0.3);
-                // mIntake.setPowerUppyDowney(0.5);
+            if ((leftButtonPressed==1) && (mIntake.getPosHalf() == -1)){
+                mIntake.setPowerSpinny(0.7);
             }
             else {
-                // mIntake.stopUppyDowney();
                 mIntake.stopSpinny();
             }
 
+            // Set Power uppy downey
             // double rightButtonPressed = mController.getRawAxis(Constants.Controllers.DrivingController.RightHoldBtn);
-            // if((rightButtonPressed==1) && (!IntakeDown)){
-            //     CommandScheduler.getInstance().schedule(mOpenIntake);
-            //     IntakeDown = true;
-            // }
-            // else {
-            //     if (IntakeDown) {
-            //         CommandScheduler.getInstance().schedule(mCloseIntake);
-            //         IntakeDown = false;
-            //     }
-            // }
-
-            // double intakeSwitch = mController.getRawAxis(Constants.Controllers.DrivingController.LeftSwitch);
-            // if (intakeSwitch == -1) {
-            //     // go down
-            //     if (mIntake.getPos() < mIntake.getDownPos() - deadzone) {
-            //         double dist = Math.abs(mIntake.getDownPos() - mIntake.getPos());
-            //         mIntake.setPowerUppyDowney(dist/6.64 * 0.4);
-            //     }
-            // } else if (intakeSwitch == 0) {
-            //     if (upping) {
-            //         double dist = Math.abs(mIntake.getMidPos() - mIntake.getPos());
-            //         mIntake.setPowerUppyDowney(-dist/6.64 * 0.4);
-            //         if (mIntake.getPos() <= mIntake.getMidPos() - deadzone) {
-            //             upping = false;
-            //         }
-            //     } else {
-            //         if (mIntake.getPos() < mIntake.getDownPos() - deadzone) {
-            //             double dist = Math.abs(mIntake.getDownPos() - mIntake.getPos());
-            //             mIntake.setPowerUppyDowney(dist/6.64 * 0.4);
-            //         } else {
-            //             upping = true;
-            //         }
-
-            //     }
-            // } else if (intakeSwitch == 1) {
-            //     // go up
-            //     if (mIntake.getPos() < mIntake.getZeroPos() - deadzone) {
-            //         double dist = Math.abs(mIntake.getZeroPos() - mIntake.getPos());
-            //         mIntake.setPowerUppyDowney(dist/6.64 * 0.4);
-            //     } else if (mIntake.getPos() > mIntake.getZeroPos() + deadzone) {
-            //         double dist = Math.abs(mIntake.getDownPos() - mIntake.getPos());
-            //         mIntake.setPowerUppyDowney(-dist/6.64 * 0.4);
-            //     }
-            // }
-
-            // double rightY = mController.getRawAxis(Constants.Controllers.DrivingController.RightYPort);
-            // if (mIntake.checkPos()) {
-            //     rightY = (rightY <= 0.1) ? 0 : rightY;
-            //     mIntake.setPowerUppyDowney(rightY);
+            // if ((rightButtonPressed == 1) && (!(mIntake.getPos() >= mIntake.getDownPos() - deadzone))) {
+            //     mIntake.setPowerUppyDowney(0.3);
+            // } else if ((rightButtonPressed == 0) && (!(mIntake.getPos() <= mIntake.getUpPos() + deadzone))) {
+            //     mIntake.setPowerUppyDowney(-0.3);
             // } else {
             //     mIntake.stopUppyDowney();
             // }

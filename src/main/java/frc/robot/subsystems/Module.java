@@ -154,7 +154,7 @@ public class Module {
 
     public void speedChange() {
         driveOutput *=  1.5;
-        // driveOutput *= slow ? 0.3 : 1;
+        driveOutput *= slow ? 0.3 : 1;
     } 
     
     // Read current module angle in Radians

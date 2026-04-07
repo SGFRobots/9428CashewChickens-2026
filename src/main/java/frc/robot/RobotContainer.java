@@ -26,6 +26,7 @@ import frc.robot.subsystems.Shooter;
 
 // Commands
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.Driving.SpeedControl;
 import frc.robot.commands.Driving.ResetRotations;
 import frc.robot.commands.Driving.SwerveJoystick;
@@ -95,7 +96,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // new JoystickButton(mDroneComtroller, Constants.Controllers.DrivingController.LeftButton).onTrue(mShooter.getDefaultCommand());
     // new JoystickButton(mDroneComtroller, Constants.Controllers.DrivingController.LeftButton).onTrue(new InstantCommand(() -> mSwerveSubsystem.resetYaw(), mSwerveSubsystem));
-    new JoystickButton(mDroneComtroller, Constants.Controllers.DrivingController.LeftButton).onTrue(mOpenIntakeCommand);
+    // new JoystickButton(mDroneComtroller, Constants.Controllers.DrivingController.LeftButton).onTrue(mOpenIntakeCommand);
   }
 
   // Set up auto commands
@@ -132,6 +133,10 @@ public class RobotContainer {
 
   public void resetHeading() {
     mSwerveSubsystem.zeroHeading();
+  }
+
+  public void OpenIntake() {
+    CommandScheduler.getInstance().schedule(mOpenIntakeCommand);
   }
 
 }

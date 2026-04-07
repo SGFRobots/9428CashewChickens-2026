@@ -83,8 +83,9 @@ public class Robot extends TimedRobot {
     m_robotContainer.mSwerveSubsystem.setLLThrottle(0);
     // CommandScheduler.getInstance().schedule(m_robotContainer.mIntakeAuto);
     // CommandScheduler.getInstance().schedule(m_robotContainer.mOpenIntake);
-
     
+    m_robotContainer.OpenIntake();
+
     // m_robotContainer.resetRotations();
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
@@ -111,6 +112,7 @@ public class Robot extends TimedRobot {
     // this line or comment it out.
     // m_elevatorCommand = m_robotContainer.getElevatorCommand(); // Commented out during the great ronin clean up of 2026
     m_robotContainer.mSwerveSubsystem.setLLThrottle(0);
+    m_robotContainer.OpenIntake();
 
     m_speedControl = m_robotContainer.getSpeedControlCommand();
     if (!m_speedControl.isScheduled()) {
