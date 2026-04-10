@@ -23,7 +23,7 @@ public class ShooterAuto extends Command {
 
     @Override 
     public void execute() {
-        mShooter.shoot(0.5);
+        mShooter.shoot(-0.8);
         // if ((timer.get() >= 0.5) && (timer.get() < timeRunning - 0.5)) {
         //     // mShooter.setServo(Constants.Mechanical.shooterGateDown);
         //     // mShooter.lowerGate();

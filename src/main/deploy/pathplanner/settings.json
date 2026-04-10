@@ -3,14 +3,17 @@
   "robotLength": 0.7778,
   "holonomicMode": true,
   "pathFolders": [
-    "Blue Right Start",
-    "Left Start",
-    "Middle Start",
-    "2026 Paths",
-    "Red Right Start",
+    "Blue1",
+    "Blue3",
+    "Blue2",
+    "Red1",
+    "Red3",
+    "Reefscape",
     "Testing"
   ],
-  "autoFolders": [],
+  "autoFolders": [
+    "Chaos Paths"
+  ],
   "defaultMaxVel": 4.7,
   "defaultMaxAccel": 2.0,
   "defaultMaxAngVel": 500.0,

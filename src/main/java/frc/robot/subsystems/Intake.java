@@ -10,14 +10,14 @@ import frc.robot.Constants;
 public class Intake extends SubsystemBase{
     private final SparkMax uppyDownyMotor;
     private final SparkMax spinnyMotor;
-    private final SparkMax uppyDownyLeftMotor;
+    // private final SparkMax uppyDownyLeftMotor;
     private double uppyUp;
     private double uppyDown;
     private int position;
 
     public Intake(){
         uppyDownyMotor = new SparkMax(Constants.MotorPorts.kUpDownID, MotorType.kBrushless);
-        uppyDownyLeftMotor = new SparkMax(Constants.MotorPorts.kUpDownTwoID, MotorType.kBrushless);
+        // uppyDownyLeftMotor = new SparkMax(Constants.MotorPorts.kUpDownTwoID, MotorType.kBrushless);
         spinnyMotor = new SparkMax(Constants.MotorPorts.kSpinnyID, MotorType.kBrushless);
 
         zeroPos();
@@ -29,14 +29,12 @@ public class Intake extends SubsystemBase{
 
     public void setPowerUppyDowney(double power){
         uppyDownyMotor.set(power);
-        uppyDownyLeftMotor.set(power);
-        SmartDashboard.putBoolean("IntakeRunning", true);
+        // uppyDownyLeftMotor.set(power);
     }
 
     public void stopUppyDowney(){
         uppyDownyMotor.stopMotor();
-        uppyDownyLeftMotor.stopMotor();
-        SmartDashboard.putBoolean("IntakeRunning", false);
+        // uppyDownyLeftMotor.stopMotor();
     }
 
     public void stopSpinny(){

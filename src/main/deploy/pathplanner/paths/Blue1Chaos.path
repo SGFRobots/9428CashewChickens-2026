@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.218733333333334,
-        "y": 8.106422222222223
+        "x": 4.238888888888889,
+        "y": 7.652922222222223
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.350622222222222,
-        "y": 8.2072
+        "x": 8.370777777777779,
+        "y": 7.7537
       },
       "isLocked": false,
       "linkedName": "Blue1Hub"
@@ -21,7 +21,7 @@
       },
       "prevControl": {
         "x": 7.786266666666665,
-        "y": 7.018022222222223
+        "y": 7.018022222222226
       },
       "nextControl": null,
       "isLocked": false,
@@ -45,10 +45,10 @@
     "rotation": -90.0
   },
   "reversed": false,
-  "folder": "2026 Paths",
+  "folder": "Blue1",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -90.0
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }

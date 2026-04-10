@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 8.753733333333333,
-        "y": 2.654344444444445
+        "x": 9.781666666666668,
+        "y": 3.0
       },
       "prevControl": {
-        "x": 8.753733333333333,
-        "y": 0.6689966442708022
+        "x": 9.781666666666668,
+        "y": 1.0146521998263573
       },
       "nextControl": null,
       "isLocked": false,
@@ -45,10 +45,10 @@
     "rotation": 90.0
   },
   "reversed": false,
-  "folder": "2026 Paths",
+  "folder": "Red1",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 90.0
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }

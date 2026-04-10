@@ -34,9 +34,11 @@ public class IntakeCommand extends Command{
             double leftButtonPressed = mController.getRawAxis(Constants.Controllers.DrivingController.LeftHoldBtn);
             if ((leftButtonPressed==1) && (mIntake.getPosHalf() == -1)){
                 mIntake.setPowerSpinny(0.7);
+                SmartDashboard.putBoolean("IntakeRunning", true);
             }
             else {
                 mIntake.stopSpinny();
+                SmartDashboard.putBoolean("IntakeRunning", false);
             }
 
             // Set Power uppy downey

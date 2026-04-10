@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.753733333333333,
-        "y": 5.405577777777778
+        "x": 9.782,
+        "y": 5.0
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.75373333333837,
-        "y": 7.5622222222171835
+        "x": 9.782000000005038,
+        "y": 7.156644444439405
       },
       "isLocked": false,
       "linkedName": "Red3Collect"
     },
     {
       "anchor": {
-        "x": 12.432122222222224,
-        "y": 8.056033333333334
+        "x": 12.865,
+        "y": 7.632766666666667
       },
       "prevControl": {
-        "x": 10.265025045363139,
-        "y": 8.056033333333334
+        "x": 10.697902823140915,
+        "y": 7.632766666666667
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,10 +42,10 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -90.0
+    "rotation": 180.0
   },
   "reversed": false,
-  "folder": "2026 Paths",
+  "folder": "Red3",
   "idealStartingState": {
     "velocity": 0,
     "rotation": -90.0
