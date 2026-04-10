@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.5737555555555556,
-        "y": 4.0
+        "x": 0.34886666666666666,
+        "y": 5.4
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.5737555555555565,
-        "y": 4.0
+        "x": 0.3488666666666667,
+        "y": 6.4
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Blue2Depot"
     },
     {
       "anchor": {
@@ -20,12 +20,12 @@
         "y": 7.0
       },
       "prevControl": {
-        "x": 2.308577496547712,
-        "y": 6.126287572473963
+        "x": 0.5019999999999998,
+        "y": 7.0
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Blue2Shoot"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -47.28800000000001
+    "rotation": -137.288
   },
   "reversed": false,
   "folder": "Blue2",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": -90.0
   },
   "useDefaultConstraints": true
 }

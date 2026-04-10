@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 12.8957,
+        "y": 4.035
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 13.8957,
+        "y": 4.035
+      },
+      "isLocked": false,
+      "linkedName": "Red2Start"
+    },
+    {
+      "anchor": {
+        "x": 15.038,
+        "y": 1.07
+      },
+      "prevControl": {
+        "x": 14.038000000000004,
+        "y": 1.07
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Red2Shoot"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 4.7,
+    "maxAcceleration": 2.0,
+    "maxAngularVelocity": 500.0,
+    "maxAngularAcceleration": 200.0,
+    "nominalVoltage": 11.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 47.288
+  },
+  "reversed": false,
+  "folder": "Red2",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 0.0
+  },
+  "useDefaultConstraints": true
+}

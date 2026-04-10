@@ -39,20 +39,23 @@ public class ShooterControl extends Command {
             double roninPower = (roninController.getRawAxis(Constants.Controllers.RoninController.PowerDialPort) + 1) /2;
             // roninPower = (roninPo7) : roninPower;
             
-            // Pose3d LLdata = mLimelight.getLL3d("limelight-front");
-            // double dist = LLdata.getZ();
-            // double power = dist / 182.11 * 0.7;
+            Pose3d LLdata = mLimelight.getLL3d("limelight-front");
+            double dist = LLdata.getZ();
+            double power = dist / 4.035 * 0.8;
+            boolean autoPower = roninController.getRawAxis(Constants.Controllers.RoninController.leftSwitch) == -1;
             
             SmartDashboard.putNumber("SHOOTER POWER", roninPower);
             
             if (revButtonPressed == 1) {
                 mShooter.shoot(0.7);
             } else {
-                 // mShooter.shoot(roninPower);
-
+                // mShooter.shoot(roninPower);
                 double buttonPressed = roninController.getRawAxis(Constants.Controllers.RoninController.ShootyPort);
                 if (buttonPressed == 1) {
                     mShooter.shoot(-roninPower); 
+                    // mShooter.shoot(autoPower? power : -roninPower); // UNCOMMENT IF WANT AUTO POWER
+
+
                     // mShooter.setServo(Constants.Mechanical.shooterGateDown);
                     // mShooter.lowerGate();
                     shooting = true; 
@@ -66,7 +69,9 @@ public class ShooterControl extends Command {
             }
             SmartDashboard.putBoolean("Shooting", shooting);
             // SmartDashboard.putNumber("servoangle", mShooter.getServoAngle());
-            SmartDashboard.putNumber("GatePos", mShooter.getGatePos());
+            // SmartDashboard.putNumber("GatePos", mShooter.getGatePos());
+            SmartDashboard.putNumber("Auto Power", power);
+            SmartDashboard.putBoolean("Auto Powering", autoPower);
 
                 // They call me doctor worm.
                 // Good morning how are you?

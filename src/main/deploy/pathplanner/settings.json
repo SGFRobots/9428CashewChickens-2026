@@ -4,8 +4,9 @@
   "holonomicMode": true,
   "pathFolders": [
     "Blue1",
-    "Blue3",
     "Blue2",
+    "Blue3",
+    "Red2",
     "Red1",
     "Red3",
     "Reefscape",
