@@ -229,7 +229,7 @@ public final class Constants {
             public static final int ShootyPort = 5;
             public static final int reversyPort = 7;
             public static final int ClimberPort = 6;
-            public static final int leftSwitch = 0;
+            public static final int leftSwitch = 6;
         }
 
         // Black drone controller

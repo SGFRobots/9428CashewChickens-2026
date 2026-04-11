@@ -41,7 +41,7 @@ public class ShooterControl extends Command {
             
             Pose3d LLdata = mLimelight.getLL3d("limelight-front");
             double dist = LLdata.getZ();
-            double power = dist / 4.035 * 0.8;
+            double power = dist / 4.035;
             boolean autoPower = roninController.getRawAxis(Constants.Controllers.RoninController.leftSwitch) == -1;
             
             SmartDashboard.putNumber("SHOOTER POWER", roninPower);
@@ -52,8 +52,8 @@ public class ShooterControl extends Command {
                 // mShooter.shoot(roninPower);
                 double buttonPressed = roninController.getRawAxis(Constants.Controllers.RoninController.ShootyPort);
                 if (buttonPressed == 1) {
-                    mShooter.shoot(-roninPower); 
-                    // mShooter.shoot(autoPower? power : -roninPower); // UNCOMMENT IF WANT AUTO POWER
+                    // mShooter.shoot(-roninPower); 
+                    mShooter.shoot(autoPower? -power : -roninPower); // UNCOMMENT IF WANT AUTO POWER
 
 
                     // mShooter.setServo(Constants.Mechanical.shooterGateDown);
@@ -70,6 +70,7 @@ public class ShooterControl extends Command {
             SmartDashboard.putBoolean("Shooting", shooting);
             // SmartDashboard.putNumber("servoangle", mShooter.getServoAngle());
             // SmartDashboard.putNumber("GatePos", mShooter.getGatePos());
+            SmartDashboard.putNumber("DISTANCE", dist);
             SmartDashboard.putNumber("Auto Power", power);
             SmartDashboard.putBoolean("Auto Powering", autoPower);
 

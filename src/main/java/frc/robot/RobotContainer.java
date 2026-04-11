@@ -33,6 +33,7 @@ import frc.robot.commands.Driving.SwerveJoystick;
 import frc.robot.commands.ShooterControl;
 import frc.robot.commands.Auto.IntakeAuto;
 import frc.robot.commands.Auto.ShooterAuto;
+import frc.robot.commands.Auto.ShooterAutoCenter;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.OpenIntakeCommand;
 import frc.robot.commands.CloseIntakeCommand;
@@ -58,6 +59,7 @@ public class RobotContainer {
   public final OpenIntakeCommand mOpenIntakeCommand;
   public final IntakeAuto mIntakeAuto;
   private final ShooterAuto mShooterAuto;
+  private final ShooterAutoCenter mShooterAutoCenter;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -82,6 +84,7 @@ public class RobotContainer {
     // Auto Commands
     mIntakeAuto = new IntakeAuto(mIntake);
     mShooterAuto = new ShooterAuto(mShooter);
+    mShooterAutoCenter = new ShooterAutoCenter(mShooter);
 
     // Auto
     setUpAuto();
@@ -103,6 +106,7 @@ public class RobotContainer {
   private void setUpAuto() {
     NamedCommands.registerCommand("Intake", mIntakeAuto);
     NamedCommands.registerCommand("Shoot", mShooterAuto);
+    NamedCommands.registerCommand("ShootCenter", mShooterAutoCenter);
   }
 
   // get selected auto

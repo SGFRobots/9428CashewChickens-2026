@@ -153,7 +153,7 @@ public class Module {
     }
 
     public void speedChange() {
-        driveOutput *=  1.5;
+        driveOutput *= fast ? 1.8 : 1;
         driveOutput *= slow ? 0.3 : 1;
     } 
     
