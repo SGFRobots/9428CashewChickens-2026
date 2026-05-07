@@ -55,6 +55,9 @@ public final class Constants {
         public static final int kLeftShooterID = 5;
         public static final int kRightShooterID = 6; 
         public static final int kGateID = 12;
+        
+        // Kicker
+        public static final int kKickerMotorID = 15;
 
         // Intake
         public static final int kUpDownID = 11;

@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj.Timer;
 
 public class ShooterControl extends Command {
     private final Shooter mShooter;
@@ -16,6 +17,9 @@ public class ShooterControl extends Command {
     public final PIDController turretPID;
     public final PIDController resetPID;
     private final Limelight mLimelight;
+    private final Timer mTimer;
+    private final double delay = 1;
+    private boolean shooterRunning = false;
 
     public ShooterControl(Shooter pShooter, GenericHID rController, Limelight pLimelight) {
         mShooter = pShooter;
@@ -25,6 +29,8 @@ public class ShooterControl extends Command {
         turretPID = new PIDController(0.2, 0, 0);
         resetPID = new PIDController(0.02, 0, 0);
 
+        mTimer = new Timer();
+
         addRequirements(mShooter);
     }
 
@@ -33,7 +39,7 @@ public class ShooterControl extends Command {
 
     @Override 
     public void execute() {
-        if (DriverStation.isTeleop()){
+        if (DriverStation.isTeleop()) {
             double revButtonPressed = roninController.getRawAxis(Constants.Controllers.RoninController.reversyPort);
             boolean shooting = false;
             double roninPower = (roninController.getRawAxis(Constants.Controllers.RoninController.PowerDialPort) + 1) /2;
@@ -52,19 +58,33 @@ public class ShooterControl extends Command {
                 // mShooter.shoot(roninPower);
                 double buttonPressed = roninController.getRawAxis(Constants.Controllers.RoninController.ShootyPort);
                 if (buttonPressed == 1) {
-                    // mShooter.shoot(-roninPower); 
+                    // mShooter.spinKicker(1);
+
+                    if (!shooterRunning) {
+                        shooterRunning = true;
+                        mTimer.restart();
+                    }
                     mShooter.shoot(autoPower? -power : -roninPower); // UNCOMMENT IF WANT AUTO POWER
+                    if ((shooterRunning) && (mTimer.get() > delay)) {
+                        // mShooter.shoot(-roninPower); 
+                        mShooter.spinKicker(0.7);
 
 
-                    // mShooter.setServo(Constants.Mechanical.shooterGateDown);
-                    // mShooter.lowerGate();
-                    shooting = true; 
+                        // mShooter.setServo(Constants.Mechanical.shooterGateDown);
+                        // mShooter.lowerGate();
+                        shooting = true; 
+                    } else {
+                        mShooter.stopKicker();
+                    }
+                    
                 } else {
                     // mShooter.shoot(0.1);
                     mShooter.stop();
+                    mShooter.stopKicker();
                     // mShooter.setServo(Constants.Mechanical.shooterGateUp);
                     // mShooter.raiseGate();
                     shooting = false;
+                    shooterRunning = false;
                 }
             }
             SmartDashboard.putBoolean("Shooting", shooting);

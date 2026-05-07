@@ -13,6 +13,7 @@ public class Shooter extends SubsystemBase{
     private final SparkMax mMotorRight;
     // private final Servo mServo;
     private final SparkMax mGateMotor;
+    private final SparkMax mKickerMotor;
     private double gateZero;
     private double gateLimit;
     private final double deadzone = 2;
@@ -22,9 +23,19 @@ public class Shooter extends SubsystemBase{
         mMotorRight = new SparkMax(Constants.MotorPorts.kRightShooterID, MotorType.kBrushless);
         // mServo = new Servo(0);
         mGateMotor = new SparkMax(Constants.MotorPorts.kGateID, MotorType.kBrushless);
+        mKickerMotor = new SparkMax(Constants.MotorPorts.kKickerMotorID, MotorType.kBrushless);
         zeroGate();
     }
 
+
+
+    public void spinKicker(double power){
+        mKickerMotor.set(power);
+        System.out.println("kick");
+    }
+    public void stopKicker(){
+        mKickerMotor.stopMotor();
+    }
     public void shoot(double power) {
         mMotorLeft.set(power);
         mMotorRight.set(power);
