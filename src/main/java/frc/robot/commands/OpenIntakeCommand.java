@@ -10,7 +10,7 @@ public class OpenIntakeCommand extends Command{
 
     public OpenIntakeCommand(Intake pIntake) {
         mIntake = pIntake;
-        deadzone = 0.5;
+        deadzone = 0.7;
     }
 
     @Override
@@ -21,16 +21,17 @@ public class OpenIntakeCommand extends Command{
         // } else {
         //     direction = 1;
         // }
-        if (mIntake.getPosHalf() == 1) {
-            direction = 1;
-        } else {
-            direction = 0;
-        }
+        // if (mIntake.getPosHalf() == 1) {
+        //     direction = 1;
+        // } else {
+        //     direction = 0;
+        // }
+        direction = mIntake.getPosHalf() * -1;
     }
 
     @Override 
     public void execute() {
-        mIntake.setPowerUppyDowney(0.2 * direction);
+        mIntake.setPowerUppyDowney(0.1 * direction);
     }
 
     @Override
@@ -41,10 +42,10 @@ public class OpenIntakeCommand extends Command{
     @Override
     public boolean isFinished() {
         // return mIntake.getPos() >= mIntake.getDownPos();
-        if (direction == 1) {
-            return mIntake.getPos() >= mIntake.getDownPos() - deadzone;
+        if (direction == -1) {
+            return mIntake.getPos() <= mIntake.getDownPos() + deadzone;
         } else {
-            return true;
+            return mIntake.getPos() >= mIntake.getUpPos() - deadzone;
         }
     }    
 }

@@ -99,7 +99,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // new JoystickButton(mDroneComtroller, Constants.Controllers.DrivingController.LeftButton).onTrue(mShooter.getDefaultCommand());
     // new JoystickButton(mDroneComtroller, Constants.Controllers.DrivingController.LeftButton).onTrue(new InstantCommand(() -> mSwerveSubsystem.resetYaw(), mSwerveSubsystem));
-    // new JoystickButton(mDroneComtroller, Constants.Controllers.DrivingController.LeftButton).onTrue(mOpenIntakeCommand);
+    new JoystickButton(mDroneComtroller, Constants.Controllers.DrivingController.LeftButton).onTrue(mOpenIntakeCommand);
   }
 
   // Set up auto commands

@@ -21,7 +21,6 @@ import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.system.plant.DCMotor;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -202,8 +201,8 @@ public class SwerveSubsystem extends SubsystemBase {
         // Update modules' positions
         LimelightHelpers.SetIMUMode("limelight-back", 4);
         mOdometer.update(getRotation2d(), getModulePositions());
-        // LimeLightUpdate();
-        LimeLightUpdateDouble();
+        LimeLightUpdate();
+        // LimeLightUpdateDouble();
         // resetOdometry(poseEstimator.getEstimatedPosition());
         SmartDashboard.putNumber("Odometry x", mOdometer.getPoseMeters().getX());
         SmartDashboard.putNumber("Odometry y", mOdometer.getPoseMeters().getY());

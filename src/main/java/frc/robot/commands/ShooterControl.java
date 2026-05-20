@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.Timer;
 public class ShooterControl extends Command {
     private final Shooter mShooter;
     private final GenericHID roninController;
+    // private final GenericHID mController;
     public final PIDController turretPID;
     public final PIDController resetPID;
     private final Limelight mLimelight;
@@ -25,6 +26,7 @@ public class ShooterControl extends Command {
         mShooter = pShooter;
         roninController = rController; 
         mLimelight = pLimelight;
+        // mController = rController;
 
         turretPID = new PIDController(0.2, 0, 0);
         resetPID = new PIDController(0.02, 0, 0);
@@ -40,15 +42,19 @@ public class ShooterControl extends Command {
     @Override 
     public void execute() {
         if (DriverStation.isTeleop()) {
-            double revButtonPressed = roninController.getRawAxis(Constants.Controllers.RoninController.reversyPort);
+            // double revButtonPressed = roninController.getRawAxis(Constants.Controllers.RoninController.reversyPort);
+            double revButtonPressed = -1;
             boolean shooting = false;
             double roninPower = (roninController.getRawAxis(Constants.Controllers.RoninController.PowerDialPort) + 1) /2;
+            // double roninPower = (mController.getRawAxis(Constants.Controllers.DrivingController.Dial) + 1) /2;
+            // double roninPower = 0.75;
             // roninPower = (roninPo7) : roninPower;
             
             Pose3d LLdata = mLimelight.getLL3d("limelight-front");
             double dist = LLdata.getZ();
             double power = dist / 4.035;
-            boolean autoPower = roninController.getRawAxis(Constants.Controllers.RoninController.leftSwitch) == -1;
+            // boolean autoPower = roninController.getRawAxis(Constants.Controllers.RoninController.leftSwitch) == -1;
+            boolean autoPower = false;
             
             SmartDashboard.putNumber("SHOOTER POWER", roninPower);
             
@@ -57,6 +63,7 @@ public class ShooterControl extends Command {
             } else {
                 // mShooter.shoot(roninPower);
                 double buttonPressed = roninController.getRawAxis(Constants.Controllers.RoninController.ShootyPort);
+                // double buttonPressed = mController.getRawAxis(Constants.Controllers.DrivingController.RightHoldBtn);
                 if (buttonPressed == 1) {
                     // mShooter.spinKicker(1);
 

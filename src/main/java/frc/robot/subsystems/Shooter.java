@@ -39,6 +39,7 @@ public class Shooter extends SubsystemBase{
     public void shoot(double power) {
         mMotorLeft.set(power);
         mMotorRight.set(power);
+        System.out.println(power);
     }
 
     public void stop() {
